@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <title>Registro</title>
@@ -14,7 +14,7 @@
             <p id="p-opciones">La página de registro de nuevas vivienda online</p>
         </div>
         <div id="div-menu">
-            <p><a href="index.html">Inicio</a></p>&nbsp;&nbsp;<p><a href="registroForm.jsp">Registre una nueva vivienda</a>&nbsp;&nbsp;<a href="viviendasActuales.jsp">Observe las viviendas actuales</a></p>
+            <p><a href="index.jsp">Inicio</a>&nbsp;&nbsp;<a href="registroForm.jsp">Registre una nueva vivienda</a>&nbsp;&nbsp;<a href="viviendasActuales.jsp">Observe las viviendas actuales</a></p>
         </div>
     </div>
     <div id="div-contenido">
@@ -35,7 +35,7 @@
     </div>
     <div id="div-footer">
         <div id="div-enlaces">
-            <table>
+            <table aria-describedby="tabla">
                 <td>
                     <h2>Sobre HR Online</h2>
                     <p><a href="underConstruction.jsp">¿Quienes somos?</a></p>

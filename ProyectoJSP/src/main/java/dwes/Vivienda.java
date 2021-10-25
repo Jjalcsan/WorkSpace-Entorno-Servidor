@@ -2,10 +2,10 @@ package dwes;
 
 public class Vivienda {
 
-	private String nombre = null;
-	private String direccion = null;
-	private int habitaciones = 0;
-	private String tipoPiso = null;
+	private String nombre;
+	private String direccion;
+	private int habitaciones;
+	private String tipoPiso;
 	
 	public Vivienda() {
 		super();

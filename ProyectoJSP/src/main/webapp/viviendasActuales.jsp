@@ -1,7 +1,8 @@
+<%@page import="dwes.Registro"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <title>Listado</title>
@@ -14,17 +15,16 @@
             <p id="p-opciones">La página de registro de nuevas vivienda online</p>
         </div>
         <div id="div-menu">
-            <p><a href="index.jsp">Inicio</a></p>&nbsp;&nbsp;<p><a href="registroForm.jsp">Registre una nueva vivienda</a>&nbsp;&nbsp;<a href="viviendasActuales.jsp">Observe las viviendas actuales</a></p>
+            <p><a href="index.jsp">Inicio</a>&nbsp;&nbsp;<a href="registroForm.jsp">Registre una nueva vivienda</a>&nbsp;&nbsp;<a href="viviendasActuales.jsp">Observe las viviendas actuales</a></p>
         </div>
     </div>
     <div id="div-contenido">
-    	<table>
+    	<table aria-describedby="tabla">
     		<td>
     		    <jsp:useBean id="nombre" class="dwes.Vivienda"></jsp:useBean>
     			<jsp:setProperty name="nombre" property="nombre" param="nombre"/>
     			<jsp:getProperty property="nombre" name="nombre"/>
     		</td>
-    		<td>
     		    <jsp:useBean id="direccion" class="dwes.Vivienda"></jsp:useBean>
     			<jsp:setProperty name="direccion" property="direccion" param="direccion"/>
     			<jsp:getProperty property="direccion" name="direccion"/>
@@ -39,12 +39,11 @@
     			<jsp:setProperty name="tipoPiso" property="tipoPiso" param="tipoPiso"/>
     			<jsp:getProperty property="tipoPiso" name="tipoPiso"/>    		
     		</td>
-
-    	</table>
+		</table>
     </div>
     <div id="div-footer">
         <div id="div-enlaces">
-            <table>
+            <table aria-describedby="tabla2">
                 <td>
                     <h2>Sobre HR Online</h2>
                     <p><a href="underConstruction.jsp">¿Quienes somos?</a></p>
