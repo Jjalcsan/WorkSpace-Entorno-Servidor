@@ -1,0 +1,24 @@
+#div-de-header{
+    width: 100%;
+    height: 20%;
+}
+
+#div-titulo{
+    width: 30%;
+    float: left;
+}
+
+#div-menu{
+    width: 70%;
+    float: right;
+}
+
+#p-titulo{
+    color: #113b80;
+    font-size: large;
+}
+
+#p-subtitulo{
+    color: #4876c2;
+    font-size: smaller;
+}
