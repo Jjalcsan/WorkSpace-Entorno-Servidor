@@ -1,0 +1,41 @@
+body{
+    margin: 0px;
+}
+
+#div-principal{
+    min-height:100%;
+    position:relative;
+}
+
+#div-contenido{
+    width: 33%;
+    background-color: blanchedalmond;
+    height: 30%;
+    margin-left: 33%;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgba(0, 0, 0, 0.705);
+}
+
+.input{
+    margin-bottom: 1px;
+    margin-left: 10%;
+}
+
+#usuario{
+    margin-left: 10%;
+}
+
+#boton{
+    margin-left: 10%;
+}
+
+#contra{
+    margin-bottom: 16px;
+    margin-left: 10%;
+}
+
+#nombre{
+    margin-top: 15%;
+}
+
