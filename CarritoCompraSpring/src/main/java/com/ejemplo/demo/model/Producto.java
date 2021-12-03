@@ -9,14 +9,14 @@ import javax.validation.constraints.Positive;
 public class Producto {
 
 	@Min(1)
-	private int id;
+	private int id=1;
 	@NotEmpty
 	private String nombre;
 	@Positive
 	private double precio;
 	
 	public Producto(int id, String nombre, double precio) {
-		this.id=id;
+		this.id=id++;
 		this.nombre=nombre;
 		this.precio=precio;
 	}

@@ -1,21 +1,22 @@
 package com.ejemplo.demo.model;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
+
+import javax.validation.constraints.Min;
 
 public class Pedido {
 	
-	private int id;
-	private ArrayList<Producto> productos;
+	@Min(1)
+	private int id=1;
+	private HashMap<Producto, Double> productos;
 	private String metodoEnvio;
-	private double total;
 	
-	public Pedido (int id, ArrayList<Producto> productos, String metodoEnvio, double total) {
+	public Pedido (int id, HashMap<Producto, Double> productos, String metodoEnvio) {
 		super();
-		this.id=id;
-		this.productos=new ArrayList<>();
+		this.id=id++;
+		this.productos=new HashMap<Producto, Double>();
 		this.metodoEnvio=metodoEnvio;
-		this.total=total;
 	}
 
 	public int getId() {
@@ -26,13 +27,6 @@ public class Pedido {
 		this.id = id;
 	}
 
-	public ArrayList<Producto> getProductos() {
-		return productos;
-	}
-
-	public void setProductos(ArrayList<Producto> productos) {
-		this.productos = productos;
-	}
 
 	public String getMetodoEnvio() {
 		return metodoEnvio;
@@ -42,17 +36,17 @@ public class Pedido {
 		this.metodoEnvio = metodoEnvio;
 	}
 
-	public double getTotal() {
-		return total;
+	public HashMap<Producto, Double> getProductos() {
+		return productos;
 	}
 
-	public void setTotal(double total) {
-		this.total = total;
+	public void setProductos(HashMap<Producto, Double> productos) {
+		this.productos = productos;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, metodoEnvio, productos, total);
+		return Objects.hash(id, metodoEnvio, productos);
 	}
 
 	@Override
@@ -65,14 +59,14 @@ public class Pedido {
 			return false;
 		Pedido other = (Pedido) obj;
 		return id == other.id && Objects.equals(metodoEnvio, other.metodoEnvio)
-				&& Objects.equals(productos, other.productos)
-				&& Double.doubleToLongBits(total) == Double.doubleToLongBits(other.total);
+				&& Objects.equals(productos, other.productos);
 	}
 
 	@Override
 	public String toString() {
-		return "Pedido [id=" + id + ", productos=" + productos + ", metodoEnvio=" + metodoEnvio + ", total=" + total
-				+ "]";
+		return "Pedido [id=" + id + ", productos=" + productos + ", metodoEnvio=" + metodoEnvio + "]";
 	}
+
+
 	
 }
