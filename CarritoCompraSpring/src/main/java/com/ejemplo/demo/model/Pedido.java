@@ -9,13 +9,13 @@ public class Pedido {
 	
 	@Min(1)
 	private int id=1;
-	private HashMap<Producto, Double> productos;
+	private HashMap<Producto, Integer> productos;
 	private String metodoEnvio;
 	
-	public Pedido (int id, HashMap<Producto, Double> productos, String metodoEnvio) {
+	public Pedido (int id, HashMap<Producto, Integer> productos, String metodoEnvio) {
 		super();
 		this.id=id++;
-		this.productos=new HashMap<Producto, Double>();
+		this.productos=new HashMap<Producto, Integer>();
 		this.metodoEnvio=metodoEnvio;
 	}
 
@@ -36,11 +36,11 @@ public class Pedido {
 		this.metodoEnvio = metodoEnvio;
 	}
 
-	public HashMap<Producto, Double> getProductos() {
+	public HashMap<Producto, Integer> getProductos() {
 		return productos;
 	}
 
-	public void setProductos(HashMap<Producto, Double> productos) {
+	public void setProductos(HashMap<Producto, Integer> productos) {
 		this.productos = productos;
 	}
 
