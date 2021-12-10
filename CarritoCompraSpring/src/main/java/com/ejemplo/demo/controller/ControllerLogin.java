@@ -24,6 +24,11 @@ public class ControllerLogin {
 	private ServicePedido servicioPedido;
 	private HttpSession session;
 	
+	/**
+	 * 
+	 * @param model
+	 * @return
+	 */
 	@GetMapping({"/inicioAdmin"})
 	public String listado(Model model) {
 		
@@ -32,14 +37,33 @@ public class ControllerLogin {
 		return "inicioAdmin";
 	}
 	
+	/**
+	 * 
+	 * @param usuario
+	 * @param bindingResult
+	 * @return
+	 */
 	@PostMapping("/login/newUsuario/submit")
 	public String nuevoUsuarioSubmit(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult bindingResult) {
 		
-		
-		
-		return null;
+		if(bindingResult.hasErrors()) {
+			return "formulario";
+		} else {
+			servicioUsuario.addUsuario(null, null, null, null, null, null);
+			return "redirect:/login/newUsuario";
+		}
 		
 	}
+	
+	//Buscar usuario
+	
+	//Borrar usuario
+	
+	//Login
+	
+	//Terminar login
+	
+	
 	
 	
 	

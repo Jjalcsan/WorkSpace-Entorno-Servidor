@@ -19,7 +19,7 @@ public class ServiceUsuario {
 	private List<Usuario> registrados = new ArrayList<>();
 	
 	/**
-	 * 
+	 * Metodo para buscar un usuario por su nick
 	 * @param Le pasamos al método como parametro un string que tendra el nick que se quiera buscar
 	 * @return Si lo encuentra nos devolverá la información del usuario buscado
 	 */
@@ -38,7 +38,7 @@ public class ServiceUsuario {
 	}
 	
 	/**
-	 * 
+	 * Metodo para añadir un usuario con parametros
 	 * @param nick
 	 * @param nombre
 	 * @param email
@@ -55,7 +55,7 @@ public class ServiceUsuario {
 	}
 	
 	/**
-	 * 
+	 * Metodo para borrar un usuario
 	 * @param nick
 	 */
 	public void delUsuario(String nick) {
@@ -68,6 +68,10 @@ public class ServiceUsuario {
 		
 	}
 	
+	/**
+	 * Metodo para mostrar todos los usuarios actuales
+	 * @return nos devolvera la lista de usuarios
+	 */
 	public String listUsuarios() {
 		StringBuilder sb = new StringBuilder();
 		
@@ -79,10 +83,10 @@ public class ServiceUsuario {
 	}
 	
 	/**
-	 * 
+	 * Metodo para verificar el login y que los datos existen
 	 * @param nick
 	 * @param pass
-	 * @return
+	 * @return devolvera el usuario si existe si no, devolvera null
 	 */
 	public boolean login(String nick, String pass) {
 		
@@ -98,7 +102,7 @@ public class ServiceUsuario {
 	}
 	
 	/**
-	 * 
+	 * Metodo para añadir un pedido
 	 * @param Le pasamos como parámetro un usuario
 	 * @param Tambien le pasamos el pedido que queremos asociarle
 	 */
@@ -110,7 +114,7 @@ public class ServiceUsuario {
 	
 	
 	/**
-	 * 
+	 * Metodo que nos devolvera todos los pedidos que ha realizado el usuario que pasemos por parametro
 	 * @param Le pasamos como parámetro el usuario del que queremos ver la lista de pedidos
 	 */
 	public ArrayList<Pedido> getAllPedidos(Usuario u) {
@@ -120,7 +124,7 @@ public class ServiceUsuario {
 	}
 	
 	/**
-	 * 
+	 * Metodo para buscar un pedido en concreto
 	 * @param Pasamos como parámetro el usuario que queremos buscar
 	 * @param Le pasamos tambien el id del pedido que queremos buscar y que esté asociado al usuario
 	 * @return
@@ -141,7 +145,7 @@ public class ServiceUsuario {
 	}
 	
 	/**
-	 * 
+	 * Metodo para borrar el pedido de un usuario
 	 * @param Pasamos como parámetro el usuario que queremos buscar
 	 * @param Le pasamos tambien el id del pedido que queremos borrar y que esté asociado al usuario
 	 */
