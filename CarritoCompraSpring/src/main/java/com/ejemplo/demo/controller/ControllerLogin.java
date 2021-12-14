@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.ejemplo.demo.model.Usuario;
-import com.ejemplo.demo.service.ServicePedido;
-import com.ejemplo.demo.service.ServiceProducto;
 import com.ejemplo.demo.service.ServiceUsuario;
 
 public class ControllerLogin {
@@ -20,17 +18,22 @@ public class ControllerLogin {
 	
 	@Autowired
 	private ServiceUsuario servicioUsuario;
-	private ServiceProducto servicioProducto;
-	private ServicePedido servicioPedido;
 	private HttpSession session;
+	
+	
+
+	@GetMapping({"/", "/inicio"})
+    public String home(){
+        return "inicio";
+    }
 	
 	/**
 	 * 
 	 * @param model
 	 * @return
 	 */
-	@GetMapping({"/inicioAdmin"})
-	public String listado(Model model) {
+	@GetMapping({"/inicio/inicioAdmin"})
+	public String listarUsers(Model model) {
 		
 		model.addAttribute("listaUsuarios", servicioUsuario.listUsuarios());
 		
@@ -43,19 +46,52 @@ public class ControllerLogin {
 	 * @param bindingResult
 	 * @return
 	 */
-	@PostMapping("/login/newUsuario/submit")
+	
+	@PostMapping("/inicio/newUsuario/submit")
 	public String nuevoUsuarioSubmit(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult bindingResult) {
 		
 		if(bindingResult.hasErrors()) {
 			return "formulario";
 		} else {
-			servicioUsuario.addUsuario(null, null, null, null, null, null);
+			servicioUsuario.add(usuario);
 			return "redirect:/login/newUsuario";
 		}
 		
 	}
 	
-	//Buscar usuario
+
+	
+	@PostMapping({"/inicio/comprobar"})
+	public String login(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult bindingresult) {
+		if(servicioUsuario.login(usuario)) {
+			
+			if(usuario.getNick().equalsIgnoreCase("admin") && !bindingresult.hasErrors()) {
+				
+				String nicksession = usuario.getNick();
+				session.setAttribute("usuarioSession", nicksession);
+				return "inicioAdmin";
+			
+			} else {
+				
+				String nicksession = usuario.getNick();
+				session.setAttribute("usuarioSession", nicksession);
+				return "inicioUser";
+			
+			}
+			
+		}else {
+			
+			return "inicio";
+		}
+	}
+	
+	
+	//@PostMapping({"/inicio/inicioAdmin/listaUsuarios"})
+	//public String delUser() {
+	
+ //}
+	
+	
 	
 	//Borrar usuario
 	

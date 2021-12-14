@@ -1,11 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Catalogo</title>
 </head>
 <body>
 <!-- Pagina a la que se accede una vez el usuario ha iniciado un nuevo pedido, deberá mostrar 
 un listado dinámico de todos los productos disponibles -->
+
+	<div>
+
+		<table>
+			<thead>
+				<tr>
+					<th>Nombre</th>
+					<th>Precio</th>
+					<!-- Añadir cantidad -->
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="producto : ${catalogo}">
+					<td th:text="${producto.nombre}"/>
+					<td th:text="${producto.precio}"/>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
 </body>
 </html>

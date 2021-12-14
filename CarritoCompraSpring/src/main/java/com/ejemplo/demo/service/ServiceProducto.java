@@ -37,11 +37,9 @@ public class ServiceProducto {
 	 * 
 	 * @return Este método nos devolverá nuestro array de productos
 	 */
-	public void getAll() {
+	public List<Producto> getAll() {
 		
-		for (Producto p : catalogo) {
-			System.out.println(p.toString());
-		}
+		return catalogo;
 		
 	}
 	

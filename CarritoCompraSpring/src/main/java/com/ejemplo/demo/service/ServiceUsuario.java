@@ -38,20 +38,13 @@ public class ServiceUsuario {
 	}
 	
 	/**
-	 * Metodo para añadir un usuario con parametros
-	 * @param nick
-	 * @param nombre
-	 * @param email
-	 * @param tlfn
-	 * @param direccion
-	 * @param contra
+	 * 
+	 * @param u
+	 * @return
 	 */
-	public void addUsuario(@NotEmpty String nick, @NotEmpty String nombre, @Email String email, String tlfn,
-			@NotEmpty String direccion, @NotEmpty String contra) {
-		
-		Usuario nuevo = new Usuario(nick, nombre, email, tlfn, direccion, contra);
-		registrados.add(nuevo);
-		
+	public Usuario add(Usuario u) {
+		registrados.add(u);
+		return u;
 	}
 	
 	/**
@@ -88,12 +81,12 @@ public class ServiceUsuario {
 	 * @param pass
 	 * @return devolvera el usuario si existe si no, devolvera null
 	 */
-	public boolean login(String nick, String pass) {
+	public boolean login(Usuario user) {
 		
 		boolean encontrado = false;
 		
 		for (Usuario u : registrados) {
-			if (u.getNick().equalsIgnoreCase(nick) && u.getContra().equalsIgnoreCase(pass)) {
+			if (u.getNick().equalsIgnoreCase(user.getNick()) && u.getContra().equalsIgnoreCase(user.getContra())) {
 				encontrado = true;
 			}
 		}
