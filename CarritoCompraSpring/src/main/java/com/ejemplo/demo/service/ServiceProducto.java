@@ -13,11 +13,22 @@ import com.ejemplo.demo.model.Producto;
 public class ServiceProducto {
 	
 	private List<Producto> catalogo = new ArrayList<>();
+
+
+	/**
+	 * Metodo que devuelve el catalogo de productos actuales
+	 * @return
+	 */
+	public List<Producto> findAll(){
+		
+		return catalogo;
+		
+	}
 	
 	/**
-	 * 
-	 * @param Pasamos el id del producto que queremos buscar
-	 * @return Nos devuelve la información del producto
+	 * Metodo para buscar un producto por su id
+	 * @param id
+	 * @return Nos devuelve el producto si lo encuentra, en caso contrario nos dara null
 	 */
 	public Producto getById(int id) {
 		
@@ -32,31 +43,20 @@ public class ServiceProducto {
 		return buscado;
 		
 	}
-
-	/**
-	 * 
-	 * @return Este método nos devolverá nuestro array de productos
-	 */
-	public List<Producto> getAll() {
-		
-		return catalogo;
-		
-	}
 	
 	/**
-	 * Método init para iniciar el array con algunos producto prehechos
+	 * Metodo init que añadira una serie de productos
 	 */
 	@PostConstruct
 	public void init() {
-		catalogo.add(new Producto(2, "Leche", 1.5));
-		catalogo.add(new Producto(3, "Huevos", 2.0));
-		catalogo.add(new Producto(4, "Cereales", 2.5));
-		catalogo.add(new Producto(5, "Carne", 3.0));
-		catalogo.add(new Producto(6, "Pescado", 3.5));
-		catalogo.add(new Producto(7, "Pizza", 4.0));
+		catalogo.add(new Producto(1, "Leche", 1.5));
+		catalogo.add(new Producto(2, "Huevos", 2.0));
+		catalogo.add(new Producto(3, "Cereales", 2.5));
+		catalogo.add(new Producto(4, "Carne", 3.0));
+		catalogo.add(new Producto(5, "Pescado", 3.5));
+		catalogo.add(new Producto(6, "Pizza", 4.0));
 		
 		
 	}
 	
-
 }

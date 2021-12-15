@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,95 +14,65 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.ejemplo.demo.model.Usuario;
 import com.ejemplo.demo.service.ServiceUsuario;
 
+@Controller
 public class ControllerLogin {
 	
-	
-	@Autowired
-	private ServiceUsuario servicioUsuario;
-	private HttpSession session;
-	
-	
+	 @Autowired
+	 private HttpSession session;
+	 
+	 @Autowired
+	 private ServiceUsuario usuarioServicio;
+	 
+	 private static final String USUARIOSTRING = "usuario";
 
-	@GetMapping({"/", "/inicio"})
-    public String home(){
-        return "inicio";
-    }
-	
-	/**
-	 * 
-	 * @param model
-	 * @return
-	 */
-	@GetMapping({"/inicio/inicioAdmin"})
-	public String listarUsers(Model model) {
+	 /**
+	  * Metodo para entrar al login una vez lancemos la aplicacion
+	  * @param model
+	  * @return nos devolvera la pantalla de inicio
+	  */
+	 @GetMapping({"/", "/inicio"})
+	 public String newLoginUsuario(Model model) {
+		 
+		model.addAttribute(USUARIOSTRING, new Usuario());
+		return "inicio";
 		
-		model.addAttribute("listaUsuarios", servicioUsuario.listUsuarios());
+	 }
+	 
+	 /**
+	  * Metodo para autenticar y quedar guardado en sesion
+	  * @param usuario
+	  * @param bindingResult
+	  * @param model
+	  * @return nos redirigira a la pantalla de usuario o nos dejara en el login si la informacion no es correcta
+	  */
+	 @PostMapping("/inicio/submit")
+	 public String validarUsuario(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult bindingResult, Model model) {
+		 
+		 if (!bindingResult.hasErrors() && usuarioServicio.existeUsuario(usuario.getNick(), usuario.getContra()) ) {
+			 
+			session.setAttribute(USUARIOSTRING, usuarioServicio.getByNick(usuario.getNick()));
+			Usuario usuarioLogado = (Usuario) session.getAttribute(USUARIOSTRING);
+			model.addAttribute(USUARIOSTRING, usuarioLogado);
+			return "/inicioUsuario";
 		
-		return "inicioAdmin";
-	}
-	
-	/**
-	 * 
-	 * @param usuario
-	 * @param bindingResult
-	 * @return
-	 */
-	
-	@PostMapping("/inicio/newUsuario/submit")
-	public String nuevoUsuarioSubmit(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult bindingResult) {
-		
-		if(bindingResult.hasErrors()) {
-			return "formulario";
-		} else {
-			servicioUsuario.add(usuario);
-			return "redirect:/login/newUsuario";
-		}
-		
-	}
-	
-
-	
-	@PostMapping({"/inicio/comprobar"})
-	public String login(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult bindingresult) {
-		if(servicioUsuario.login(usuario)) {
-			
-			if(usuario.getNick().equalsIgnoreCase("admin") && !bindingresult.hasErrors()) {
-				
-				String nicksession = usuario.getNick();
-				session.setAttribute("usuarioSession", nicksession);
-				return "inicioAdmin";
-			
-			} else {
-				
-				String nicksession = usuario.getNick();
-				session.setAttribute("usuarioSession", nicksession);
-				return "inicioUser";
-			
-			}
-			
-		}else {
+		 } else {
 			
 			return "inicio";
-		}
+				
+			}
+	 }
+	 
+	 /**
+	  * Metodo para cerrar la sesion del usuario
+	  * @return nos devuelve al login
+	  */
+	@GetMapping({"/terminate"})
+	public String terminate() {
+		
+		this.session.invalidate();
+		return "redirect:/inicio";
+			
 	}
 	
-	
-	//@PostMapping({"/inicio/inicioAdmin/listaUsuarios"})
-	//public String delUser() {
-	
- //}
-	
-	
-	
-	//Borrar usuario
-	
-	//Login
-	
-	//Terminar login
-	
-	
-	
-	
-	
-
+	 
 }

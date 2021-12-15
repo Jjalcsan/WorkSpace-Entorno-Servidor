@@ -2,25 +2,31 @@ package com.ejemplo.demo.model;
 
 import java.util.Objects;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Positive;
-
 public class Producto {
-
-	@Min(1)
-	private int id=1;
-	@NotEmpty
+	
+	private static int contador = 8;
+	
+	private int id;
 	private String nombre;
-	@Positive
 	private double precio;
 	
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	//Constructores	
+	
+	public Producto() {}
+	
 	public Producto(int id, String nombre, double precio) {
-		this.id=id++;
-		this.nombre=nombre;
-		this.precio=precio;
+		
+		super();
+		this.id = contador++;
+		this.nombre = nombre;
+		this.precio = precio;
+		
 	}
 
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	//Setters y Getters
+	
 	public int getId() {
 		return id;
 	}
@@ -45,6 +51,9 @@ public class Producto {
 		this.precio = precio;
 	}
 
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+	//Metodos Override	
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, nombre, precio);
@@ -67,8 +76,8 @@ public class Producto {
 	public String toString() {
 		return "Producto [id=" + id + ", nombre=" + nombre + ", precio=" + precio + "]";
 	}
-	
-	
+
 	
 	
 }
+	

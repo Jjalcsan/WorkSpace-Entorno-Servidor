@@ -1,31 +1,38 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Catalogo</title>
+
+	<meta charset="utf-8"> 
+	<title>Catalogo E-Market</title> 
+	<link type="text/css" rel="stylesheet" href="/css/CSScatalogo.css" />
 </head>
 <body>
-<!-- Pagina a la que se accede una vez el usuario ha iniciado un nuevo pedido, deberá mostrar 
-un listado dinámico de todos los productos disponibles -->
 
-	<div>
-
+	<div id="div-general">
+	<div id="div-contenido">
+		<form th:action="@{/catalogo/submit}" method="post">
+		<h1>Nuestra seleccion</h1>
 		<table>
-			<thead>
-				<tr>
-					<th>Nombre</th>
-					<th>Precio</th>
-					<!-- Añadir cantidad -->
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="producto : ${catalogo}">
-					<td th:text="${producto.nombre}"/>
-					<td th:text="${producto.precio}"/>
-				</tr>
-			</tbody>
+			<tr>
+			
+				<th scope="col">Producto</th>
+				<th scope="col">Precio</th>
+				<th scope="col">Unidades</th>
+				
+			</tr>
+			<tr th:each="producto : ${catalogo}">
+			
+				<td th:text="${producto.getNombre()}"></td>
+				<td th:text="${producto.getPrecio()}"></td>
+				<td><input type="number" name="unidades" min="0" value="0"/></td>
+				
+			</tr>
 		</table>
+				<button type="submit" id="boton">Confirmar</button>
+		</form>
 
+	</div>	
 	</div>
+	
 </body>
 </html>

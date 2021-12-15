@@ -1,167 +1,152 @@
 package com.ejemplo.demo.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 import javax.annotation.PostConstruct;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
 
 import org.springframework.stereotype.Service;
 
-import com.ejemplo.demo.model.Usuario;
 import com.ejemplo.demo.model.Pedido;
+import com.ejemplo.demo.model.Producto;
+import com.ejemplo.demo.model.Usuario;
 
 @Service
 public class ServiceUsuario {
 
 	private List<Usuario> registrados = new ArrayList<>();
-	
+
 	/**
-	 * Metodo para buscar un usuario por su nick
-	 * @param Le pasamos al método como parametro un string que tendra el nick que se quiera buscar
-	 * @return Si lo encuentra nos devolverá la información del usuario buscado
-	 */
-	public Usuario getByNick(String nick) {
-		
-		Usuario buscado = null;
-		
-		for (Usuario u : registrados) {
-			
-			if(u.getNick().equalsIgnoreCase(nick)) {
-				buscado=u;
-			}
-		}
-		
-		return buscado;
-	}
-	
-	/**
-	 * 
-	 * @param u
-	 * @return
-	 */
-	public Usuario add(Usuario u) {
-		registrados.add(u);
-		return u;
-	}
-	
-	/**
-	 * Metodo para borrar un usuario
-	 * @param nick
-	 */
-	public void delUsuario(String nick) {
-		
-		for (Usuario u : registrados) {
-			if(u.getNick().equalsIgnoreCase(nick)) {
-				registrados.remove(u);
-			}
-		}
-		
-	}
-	
-	/**
-	 * Metodo para mostrar todos los usuarios actuales
-	 * @return nos devolvera la lista de usuarios
-	 */
-	public String listUsuarios() {
-		StringBuilder sb = new StringBuilder();
-		
-		for (Usuario u : registrados) {
-			sb.append(u.toString());
-		}
-		
-		return sb.toString();
-	}
-	
-	/**
-	 * Metodo para verificar el login y que los datos existen
-	 * @param nick
-	 * @param pass
-	 * @return devolvera el usuario si existe si no, devolvera null
-	 */
-	public boolean login(Usuario user) {
-		
-		boolean encontrado = false;
-		
-		for (Usuario u : registrados) {
-			if (u.getNick().equalsIgnoreCase(user.getNick()) && u.getContra().equalsIgnoreCase(user.getContra())) {
-				encontrado = true;
-			}
-		}
-		
-		return encontrado;
-	}
-	
-	/**
-	 * Metodo para añadir un pedido
-	 * @param Le pasamos como parámetro un usuario
-	 * @param Tambien le pasamos el pedido que queremos asociarle
-	 */
-	public void addPedido(Usuario u, Pedido p) {
-		
-		u.getPedidos().add(p);
-		
-	}
-	
-	
-	/**
-	 * Metodo que nos devolvera todos los pedidos que ha realizado el usuario que pasemos por parametro
-	 * @param Le pasamos como parámetro el usuario del que queremos ver la lista de pedidos
-	 */
-	public ArrayList<Pedido> getAllPedidos(Usuario u) {
-		
-		return u.getPedidos();
-		
-	}
-	
-	/**
-	 * Metodo para buscar un pedido en concreto
-	 * @param Pasamos como parámetro el usuario que queremos buscar
-	 * @param Le pasamos tambien el id del pedido que queremos buscar y que esté asociado al usuario
-	 * @return
-	 */
-	public Pedido getPedidoById(Usuario u, int id){
-		
-		Pedido buscado = null;
-		
-		for (Pedido p : u.getPedidos()) {
-			
-			if(p.getId()==id) {
-				buscado=p;
-				
-			}
-		}
-		
-		return buscado;
-	}
-	
-	/**
-	 * Metodo para borrar el pedido de un usuario
-	 * @param Pasamos como parámetro el usuario que queremos buscar
-	 * @param Le pasamos tambien el id del pedido que queremos borrar y que esté asociado al usuario
-	 */
-	public void removePedido(Usuario u, int id) {
-		
-		for (Pedido p : u.getPedidos()) {
-			if(p.getId()==id) {
-				u.getPedidos().remove(p);
-			}
-		}
-	}
-	
-	/**
-	 * Método init para nuestra lista que se iniciará con dos usuarios prehechos
+	 * Añade a la lista de usuarios dos usuarios para el testeo de la aplicacion
 	 */
 	@PostConstruct
 	public void init() {
 		
-		registrados.add(new Usuario("admin", "admin", "admin@administrador.es", "123456789", "C Dir Nº1", "admin"));
-		registrados.add(new Usuario("usuario123", "pepito", "unUsu@dominio.ar", "123456789", "C Cas Nº2", "usuusu"));
-
+		registrados.add(new Usuario("admin", "admin", "admin", "admin@dominio.com", "123456789", "C Generica Nº1"));
+		registrados.add(new Usuario("usuario123", "pepito", "usuusu", "unUsu@dominio.ar", "123456789", "C Cas Nº2"));
+	
 	}
 	
+	/**
+	 * Metodo booleano para comprobar si existe un usuario por su nick y contraseña para la validacion del login
+	 * @param nick
+	 * @param contra
+	 * @return nos devolvera true si existe o false en caso contrario
+	 */
+	public boolean existeUsuario(String nick, String contra) {
+		
+		boolean encontrado = false;
+		int i = 0;
+		
+		while (!encontrado && i<registrados.size()) {
+			if(registrados.get(i).getNick().equals(nick) && registrados.get(i).getContra().equals(contra)){
+				
+				encontrado = true;
+				
+			}else {i++;}
+		}
+		
+		return encontrado;
+		
+	}
 	
+	/**
+	 * Metodo que nos devuelve todos los usuarios
+	 * @return
+	 */
+	public List<Usuario> getAllUsuarios() {
+		
+		return registrados;
+		
+	}
+	
+	/**
+	 * Metodo para buscar un usuario por su nick, ya que este es unico lo podemos utilizar como id para los usuarios
+	 * aunque en la practica real esto no sea eficiente
+	 * @param nick
+	 * @return nos devolvera el usuario si lo encuentra o null en caso contrario
+	 */
+	public Usuario getByNick(String nick) {
+		
+		Usuario usuEncontrado = null;
+		boolean encontrado = false;
+		int i = 0;
+		
+		while(!encontrado && i<registrados.size()) {
+			if(Objects.equals(registrados.get(i).getNick(), nick)) {
+				
+				encontrado = true;
+				usuEncontrado = registrados.get(i);
+				
+			}else {i++;}
+		}
+		
+		return usuEncontrado;
+	}
+	
+
+	/**
+	 * Metodo para añadir un nuevo pedido a la lista de pedidos de un usuario
+	 * @param usuario
+	 * @param productos
+	 * @param metodoEnvio
+	 */
+	public void addPedido(Usuario usuario, Map<Producto, Integer> productos, String metodoEnvio) {
+		
+		Pedido pedido = new Pedido(productos, metodoEnvio);
+
+		pedido.setMetodoEnvio(metodoEnvio);
+		
+		usuario.getPedidos().add(0, pedido);
+		
+	}
+
+	/**
+	 * Metodo que nos devuelve la lista de pedidos de un usuario
+	 * @param usuario
+	 * @return
+	 */
+	public List<Pedido> getAllPedidos(Usuario usuario) {
+		
+		return usuario.getPedidos();
+		
+	}
+	
+
+	/**
+	 * Buscamos el pedido de un usuario por su id
+	 * @param id
+	 * @param usuario
+	 * @return
+	 */
+	public Pedido getPedidoById(int id, Usuario usuario) {
+		
+		Pedido pedido = new Pedido(id);
+		
+		for(int i=0; i<usuario.getPedidos().size(); i++) {
+			if(usuario.getPedidos().get(i).getId() == (pedido.getId())) {
+				
+				pedido = usuario.getPedidos().get(i);
+				
+			}
+		}
+		
+		return pedido;
+		
+	}
+
+	
+	/**
+	 * Metodo para borrar uno de los pedidos asociados a un usuario
+	 * @param pedido
+	 * @param usuario
+	 */
+	public void delPedido(Pedido pedido, Usuario usuario) {
+		
+		usuario.getPedidos().remove(pedido);
+		
+	}
 	
 }

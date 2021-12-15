@@ -1,40 +1,68 @@
 package com.ejemplo.demo.model;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
 public class Usuario {
 
-	@NotEmpty
-	private String nick;
-	@NotEmpty
+
 	private String nombre;
-	@Email
-	private String email;
-	private String tlfn;
-	@NotEmpty
-	private String direccion;
-	@NotEmpty
+	@NotEmpty(message="Este campo es obligatorio") 
+	private String nick;
+	@NotEmpty(message="Este campo es obligatorio")
 	private String contra;
-	private ArrayList<Pedido> pedidos;
-
+	private String email;
+	private String telefono;
+	private String direccion;
+	private List<Pedido> pedidos = new ArrayList<>();
 	
-	
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	//Constructores
 
-	public Usuario(@NotEmpty String nick, @NotEmpty String nombre, @Email String email, String tlfn,
-			@NotEmpty String direccion, @NotEmpty String contra) {
-		super();
+	public Usuario() {}
+	
+	public Usuario( String nick) {
+		
 		this.nick = nick;
-		this.nombre = nombre;
-		this.email = email;
-		this.tlfn = tlfn;
-		this.direccion = direccion;
 		this.contra = contra;
-		this.pedidos = new ArrayList<Pedido>();
+		this.pedidos = pedidos;
+		
+	}
+
+	public Usuario(String nick, String contra) {
+		
+		this.nick = nick;
+		this.contra = contra;
+		this.pedidos = pedidos;
+		
+	}
+	
+	
+	public Usuario(String nombre,String nick, String contra, String email, String telefono, String direccion) {
+		
+		super();
+		this.nombre = nombre;
+		this.nick = nick;
+		this.contra = contra;
+		this.email = email;
+		this.telefono = telefono;
+		this.direccion = direccion;
+		this.pedidos = pedidos;
+		
+	}
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	//Setters y Getters
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	public String getNick() {
@@ -45,12 +73,12 @@ public class Usuario {
 		this.nick = nick;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public String getContra() {
+		return contra;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setContra(String contra) {
+		this.contra = contra;
 	}
 
 	public String getEmail() {
@@ -61,12 +89,12 @@ public class Usuario {
 		this.email = email;
 	}
 
-	public String getTlfn() {
-		return tlfn;
+	public String getTelefono() {
+		return telefono;
 	}
 
-	public void setTlfn(String tlfn) {
-		this.tlfn = tlfn;
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
 	}
 
 	public String getDireccion() {
@@ -77,25 +105,20 @@ public class Usuario {
 		this.direccion = direccion;
 	}
 
-	public String getContra() {
-		return contra;
-	}
-
-	public void setContra(String contra) {
-		this.contra = contra;
-	}
-
-	public ArrayList<Pedido> getPedidos() {
+	public List<Pedido> getPedidos() {
 		return pedidos;
 	}
 
-	public void setPedidos(ArrayList<Pedido> pedidos) {
+	public void setPedidos(List<Pedido> pedidos) {
 		this.pedidos = pedidos;
 	}
 
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+	//Metodos Override	
+	
 	@Override
 	public int hashCode() {
-		return Objects.hash(contra, direccion, email, nick, nombre, pedidos, tlfn);
+		return Objects.hash(contra, direccion, email, nick, nombre, pedidos, telefono);
 	}
 
 	@Override
@@ -110,19 +133,17 @@ public class Usuario {
 		return Objects.equals(contra, other.contra) && Objects.equals(direccion, other.direccion)
 				&& Objects.equals(email, other.email) && Objects.equals(nick, other.nick)
 				&& Objects.equals(nombre, other.nombre) && Objects.equals(pedidos, other.pedidos)
-				&& Objects.equals(tlfn, other.tlfn);
+				&& Objects.equals(telefono, other.telefono);
 	}
 
 	@Override
 	public String toString() {
-		return "Nick: " + nick + ", Nombre completo: " + nombre + ", Email: " + email + ", Teléfono: " + tlfn + ", Dirección: "
-				+ direccion + ", Listado de pedidos=" + pedidos + ".";
+		return "Usuario [nombre=" + nombre + ", nick=" + nick + ", contra=" + contra + ", email=" + email
+				+ ", telefono=" + telefono + ", direccion=" + direccion + ", pedidos=" + pedidos + "]";
 	}
 
-	
 
-	
-	
+
 	
 	
 	

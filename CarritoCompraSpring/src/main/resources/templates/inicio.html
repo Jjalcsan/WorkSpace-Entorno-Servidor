@@ -1,19 +1,32 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html  xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
-	<title>Login</title>
-	<meta charset="UTF-8">
+
+	<meta charset="utf-8">
+	<title>Login E-Market</title>
+	<link type="text/css" rel="stylesheet" href="/css/CSSgeneral.css" />
 </head>
+
 <body>
-	<div>
-		<form method="post" th:action="@{}">
-			<p>Nick: <input>
-			<span></span></p>
-			
-			<p>Contraseña: <input>
-			<span></span></p>
-		</form>
+	<div id="div-general">
+	<div id="div-contenido">
+	  
+		<h1>Bienvenido a E-Market</h1>
+	    <form method="post" action="#" th:object="${usuario}" th:action=" @{/inicio/submit}">
+	    
+		    <p><input name="nick" placeholder="Introduzca su nombre" type="text" th:field="*{nick}">
+		    <span th:if="${#fields.hasErrors('nick')}" th:errors="*{nick}">Errores</span></p>
+		    
+		    <p><input name="contra" placeholder="Introduzca su contraseña" type="password" th:field="*{contra}"> 
+            <span th:if="${#fields.hasErrors('contra')}" th:errors="*{contra}">Errores</span></p>
+		   
+		    <input type="submit" value="Acceder" id="boton">
+	    
+	    </form>
+	</div>
 	</div>
 
+
 </body>
+
 </html>
