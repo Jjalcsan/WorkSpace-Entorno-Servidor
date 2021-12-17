@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.ejemplo.demo.model.Empleado;
-import com.ejemplo.demo.service.EmpleadoService;
+import com.ejemplo.demo.service.EmpleadoServiceMemory;
 
 @Controller
 public class EmpleadoController {
 	
 	@Autowired
-	private EmpleadoService servicio;
+	private EmpleadoServiceMemory servicio;
 	
 	@GetMapping({"/", "/empleado/list"})
 	public String listado(Model model) {

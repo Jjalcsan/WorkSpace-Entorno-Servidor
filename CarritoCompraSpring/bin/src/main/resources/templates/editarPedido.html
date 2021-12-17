@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+
+	<meta charset="utf-8">
+	<title>E-Market</title>
+	<link type="text/css" rel="stylesheet" href="/css/CSSeditar.css" />
+</head>
+<body>
+	<div id="div-general">
+	<div id="div-contenido">
+		<form method="post" th:action="@{/editarPedido/submit}">
+     		<table>
+				<h2>Pedido con ID: <span th:text="${pedido.getId()}" scope="col"></span></h2>
+				<input type="hidden" name="id" th:value="${pedido.getId()}"/>
+				<tr>
+					<th scope="col">Producto</th>
+					<th scope="col">Unidades</th>
+				</tr>
+				
+				<tr th:each="producto : ${ProYCan}">
+					<td th:text="${producto.key.getNombre()}"></td>
+		        	<td ><input type="number" name="cantidad" min="0" th:value="${producto.value}"/></td>
+				</tr>
+				<tr>Normal<input type="radio" name="metodoEnvio" value="Normal"/>Express<input type="radio" name="metodoEnvio" value="Express"/></tr>
+			</table>
+			
+	     	<button type="submit" id="boton">Finalizar</button>
+		</form>
+	</div>
+	</div>
+</body>
+</html>
