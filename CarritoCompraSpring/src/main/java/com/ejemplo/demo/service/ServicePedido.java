@@ -35,11 +35,9 @@ public class ServicePedido {
 	 * 
 	 * 
 	 */
-	public void getAll() {
+	public List<Pedido> getAll() {
 		
-		for (Pedido p : pedidos) {
-			System.out.println(p.toString());
-		}
+		return pedidos;
 		
 	}
 	
@@ -50,14 +48,15 @@ public class ServicePedido {
 	 * @param idProducto
 	 * @param cantidad
 	 */
-	public void addProduct(Pedido pedido, int idProducto, int cantidad) {
+	public Pedido addProduct(Pedido pedido, int idProducto, int cantidad) {
 			
 		ServiceProducto lista = new ServiceProducto();
 		
 		if(lista.getById(idProducto)!=null) {
 			pedido.getProductos().put(lista.getById(idProducto), cantidad);
 		}
-			
+		
+		return pedido;
 	}
 		
 	/**
@@ -65,13 +64,15 @@ public class ServicePedido {
 	 * @param pedido
 	 * @param idProducto
 	 */
-	public void delProduct(Pedido pedido, int idProducto) {
+	public Pedido delProduct(Pedido pedido, int idProducto) {
 		
 		ServiceProducto lista = new ServiceProducto();
 		
 		if(lista.getById(idProducto)!=null) {
 			pedido.getProductos().remove(lista.getById(idProducto));
 		}
+		
+		return pedido;
 		
 	}
 		

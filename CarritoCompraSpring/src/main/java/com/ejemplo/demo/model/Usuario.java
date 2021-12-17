@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
 public class Usuario {
@@ -34,7 +33,7 @@ public class Usuario {
 		this.tlfn = tlfn;
 		this.direccion = direccion;
 		this.contra = contra;
-		this.pedidos = new ArrayList<Pedido>();
+		this.pedidos = new ArrayList<>();
 	}
 
 	public String getNick() {

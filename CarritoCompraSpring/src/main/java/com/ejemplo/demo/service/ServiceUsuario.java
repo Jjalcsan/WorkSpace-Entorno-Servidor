@@ -1,12 +1,9 @@
 package com.ejemplo.demo.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
 
 import org.springframework.stereotype.Service;
 
@@ -20,7 +17,7 @@ public class ServiceUsuario {
 	
 	/**
 	 * Metodo para buscar un usuario por su nick
-	 * @param Le pasamos al método como parametro un string que tendra el nick que se quiera buscar
+	 * @param nick Le pasamos al método como parametro un string que tendra el nick que se quiera buscar
 	 * @return Si lo encuentra nos devolverá la información del usuario buscado
 	 */
 	public Usuario getByNick(String nick) {
@@ -35,44 +32,6 @@ public class ServiceUsuario {
 		}
 		
 		return buscado;
-	}
-	
-	/**
-	 * 
-	 * @param u
-	 * @return
-	 */
-	public Usuario add(Usuario u) {
-		registrados.add(u);
-		return u;
-	}
-	
-	/**
-	 * Metodo para borrar un usuario
-	 * @param nick
-	 */
-	public void delUsuario(String nick) {
-		
-		for (Usuario u : registrados) {
-			if(u.getNick().equalsIgnoreCase(nick)) {
-				registrados.remove(u);
-			}
-		}
-		
-	}
-	
-	/**
-	 * Metodo para mostrar todos los usuarios actuales
-	 * @return nos devolvera la lista de usuarios
-	 */
-	public String listUsuarios() {
-		StringBuilder sb = new StringBuilder();
-		
-		for (Usuario u : registrados) {
-			sb.append(u.toString());
-		}
-		
-		return sb.toString();
 	}
 	
 	/**
@@ -99,9 +58,11 @@ public class ServiceUsuario {
 	 * @param Le pasamos como parámetro un usuario
 	 * @param Tambien le pasamos el pedido que queremos asociarle
 	 */
-	public void addPedido(Usuario u, Pedido p) {
+	public Pedido addPedido(Usuario u, Pedido p) {
+		//Añadir al final del index para tenerlo ordenado sin comparable
+		u.getPedidos().add(0, p);
 		
-		u.getPedidos().add(p);
+		return p;
 		
 	}
 	
@@ -157,9 +118,9 @@ public class ServiceUsuario {
 	@PostConstruct
 	public void init() {
 		
-		registrados.add(new Usuario("admin", "admin", "admin@administrador.es", "123456789", "C Dir Nº1", "admin"));
+		registrados.add(new Usuario("admin", "admin", "admin@administrador.es", "123456788", "C Dir Nº1", "admin"));
 		registrados.add(new Usuario("usuario123", "pepito", "unUsu@dominio.ar", "123456789", "C Cas Nº2", "usuusu"));
-
+		registrados.add(new Usuario("juanjo", "Juan Jose", "juanjo@dominio.com", "123456787", "C Cas Nº2", "juanjo1"));
 	}
 	
 	

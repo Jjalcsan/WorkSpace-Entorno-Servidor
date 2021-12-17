@@ -15,7 +15,7 @@ public class ServiceProducto {
 	private List<Producto> catalogo = new ArrayList<>();
 	
 	/**
-	 * 
+	 * Metodo para buscar un producto por su id
 	 * @param Pasamos el id del producto que queremos buscar
 	 * @return Nos devuelve la información del producto
 	 */
@@ -34,14 +34,15 @@ public class ServiceProducto {
 	}
 
 	/**
-	 * 
-	 * @return Este método nos devolverá nuestro array de productos
+	 * Metodo para imprimir nuestro array de productos
+	 * @return devuelve nuestro array de productos
 	 */
 	public List<Producto> getAll() {
 		
 		return catalogo;
 		
 	}
+	
 	
 	/**
 	 * Método init para iniciar el array con algunos producto prehechos
