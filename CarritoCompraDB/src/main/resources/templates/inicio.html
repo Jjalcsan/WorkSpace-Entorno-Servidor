@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+
+	<meta charset="utf-8">
+	<title>Login E-Market</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+
+<body style="width: 100%; margin: 0%; padding: 0%;">
+	<div class="container" style="width: 100%; margin: 0%; padding: 0%;">
+		<div class="row bg-primary" style="padding: 1%;">
+			<div class="col-6">
+				<h1 style="margin-left: 1%;">Bienvenido a E-Market</h1>
+				<p style="margin-left: 1%;">Tu supermercado de confianza</p>
+			</div>
+			<div class="col-2 offset-4">
+				<button class="btn btn-default" style="margin-left: 1%;">Inicio</button>
+			</div>
+		</div>
+		<div style="border-width: 1px; border-style: groove; border-color: rgba(0, 0, 0, 0.494);">
+	    	<form method="post" action="#" th:object="${usuario}" th:action=" @{/inicio/submit}" >
+				<div class="form-group">
+
+					<label for="nick">Nick:</label>
+					<p><input name="nick" placeholder="Introduzca su nombre" type="text" th:field="*{nick}">
+					<span th:if="${#fields.hasErrors('nick')}" th:errors="*{nick}">Errores</span></p>
+			
+				</div>
+				<div>
+
+					<label for="contra">Contra:</label>
+					<p><input name="contra" placeholder="Introduzca su contraseña" type="password" th:field="*{contra}"> 
+					<span th:if="${#fields.hasErrors('contra')}" th:errors="*{contra}">Errores</span></p>
+			
+				</div>
+
+		    	<input type="submit" value="Acceder" class="btn btn-primary">
+	    
+	    	</form>
+		</div>
+	</div>
+
+
+</body>
+
+</html>

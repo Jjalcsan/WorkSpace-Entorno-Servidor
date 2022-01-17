@@ -1,5 +1,6 @@
 package com.ejemplo.demo.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ejemplo.demo.model.LineaPedido;
 import com.ejemplo.demo.model.Pedido;
 import com.ejemplo.demo.model.Producto;
 import com.ejemplo.demo.model.Usuario;
@@ -20,16 +22,13 @@ public class ServicePedidoMemory {
 	@Autowired
 	private ServiceProductoMemory productService;
 	
-	
-	private Map<Producto, Integer> ProYCan = new HashMap<>();
-	
 	/**
 	 * Busca todos los productos y sus cantidades
 	 * @return devuelve los productos y sus cantidades
 	 */
-	public Map<Producto, Integer> getAll(){
+	public List<LineaPedido> getAll(){
 		
-		return this.ProYCan;
+		return ;
 	}
 	
 	/**
@@ -51,7 +50,7 @@ public class ServicePedidoMemory {
 	public void addProducto(Integer[] listaCantidades) {
 		
 		List<Producto> listaDeProductos = this.productService.findAll();
-		Map<Producto, Integer> temp = new HashMap<>();
+		List<LineaPedido> temp = new ArrayList<>();
 		
 		for(int i = 0; i<listaCantidades.length; i++) {
 			temp.put(listaDeProductos.get(i), listaCantidades[i]);
@@ -73,14 +72,14 @@ public class ServicePedidoMemory {
 		Pedido pedido = servicioUser.getPedidoById(id, usuario);
 
 		pedido.setMetodoEnvio(metodoEnvio);
-		Map<Producto, Integer> mapAux = new HashMap<>();
+		List<LineaPedido> mapAux = new ArrayList<>();
 		List<Producto> listaDeProductos = productService.findAll();
 		
 		for(int i=0; i<listaCantidades.length; i++) {
-			mapAux.put(listaDeProductos.get(i), listaCantidades[i]);
+			mapAux.add(listaDeProductos.get(i), listaCantidades[i]);
 		}
 		
-		pedido.setProductos(mapAux);
+		pedido.setLineasPedido(mapAux);
 		
 	}
 	

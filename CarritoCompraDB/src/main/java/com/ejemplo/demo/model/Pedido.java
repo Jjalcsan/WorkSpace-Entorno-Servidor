@@ -63,6 +63,14 @@ public class Pedido {
 		this.fecha = fecha;
 	}
 
+	public List<LineaPedido> getLineasPedido() {
+		return lineasPedido;
+	}
+
+	public void setLineasPedido(List<LineaPedido> lineasPedido) {
+		this.lineasPedido = lineasPedido;
+	}
+	
 	public String getMetodoEnvio() {
 		return metodoEnvio;
 	}
@@ -97,5 +105,7 @@ public class Pedido {
 		return "Pedido [id=" + id + ", fecha=" + fecha + ", lineasPedido=" + lineasPedido + ", metodoEnvio="
 				+ metodoEnvio + "]";
 	}
+
+
 
 }

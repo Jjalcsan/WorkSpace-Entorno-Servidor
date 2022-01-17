@@ -4,11 +4,12 @@ import java.util.Objects;
 
 public class Producto {
 	
-	
+	private static int contador = 1;
 	
 	private int id;
 	private String nombre;
 	private double precio;
+	private String url;
 	
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//Constructores	
@@ -50,6 +51,14 @@ public class Producto {
 	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
+	
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 	//Metodos Override	
@@ -75,9 +84,7 @@ public class Producto {
 	@Override
 	public String toString() {
 		return "Producto [id=" + id + ", nombre=" + nombre + ", precio=" + precio + "]";
-	}
-
-	
+	}	
 	
 }
 	
