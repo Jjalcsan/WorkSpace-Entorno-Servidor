@@ -4,17 +4,16 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class Pedido {
-	
-	private static int contador = 1;
-	
-	@Id @GeneratedValue
+
 	private int id;
 	private LocalDate fecha;
 	private List<LineaPedido> lineasPedido;
@@ -36,7 +35,6 @@ public class Pedido {
 	public Pedido (List<LineaPedido> lineasPedido, @NotEmpty String metodoEnvio) {
 		
 		super();
-		this.id = contador++;
 		this.fecha = LocalDate.now();
 		this.lineasPedido = lineasPedido;
 		this.metodoEnvio = metodoEnvio;
@@ -46,7 +44,8 @@ public class Pedido {
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//Setters y Getters
 	
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {
 		return id;
 	}
@@ -55,6 +54,7 @@ public class Pedido {
 		this.id = id;
 	}
 
+	@Column(name = "fecha", nullable = false)
 	public LocalDate getFecha() {
 		return fecha;
 	}
@@ -63,6 +63,7 @@ public class Pedido {
 		this.fecha = fecha;
 	}
 
+	@Column(name = "lineasPedido", nullable = false)
 	public List<LineaPedido> getLineasPedido() {
 		return lineasPedido;
 	}
@@ -71,6 +72,7 @@ public class Pedido {
 		this.lineasPedido = lineasPedido;
 	}
 	
+	@Column(name = "metodoEnvio", nullable = false)
 	public String getMetodoEnvio() {
 		return metodoEnvio;
 	}

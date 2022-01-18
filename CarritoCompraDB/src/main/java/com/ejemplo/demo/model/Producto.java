@@ -2,6 +2,11 @@ package com.ejemplo.demo.model;
 
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 public class Producto {
 	
 	private static int contador = 1;
@@ -28,6 +33,8 @@ public class Producto {
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//Setters y Getters
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {
 		return id;
 	}
@@ -36,6 +43,7 @@ public class Producto {
 		this.id = id;
 	}
 
+	@Column(name = "nombre", nullable = false)
 	public String getNombre() {
 		return nombre;
 	}
@@ -44,6 +52,7 @@ public class Producto {
 		this.nombre = nombre;
 	}
 
+	@Column(name = "nombre", nullable = false)
 	public double getPrecio() {
 		return precio;
 	}
@@ -52,6 +61,7 @@ public class Producto {
 		this.precio = precio;
 	}
 	
+	@Column(name = "url", nullable = false)
 	public String getUrl() {
 		return url;
 	}

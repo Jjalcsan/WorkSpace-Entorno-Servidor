@@ -20,15 +20,15 @@ public class ServicePedidoMemory {
 	private ServiceUsuarioMemory servicioUser;
 	
 	@Autowired
-	private ServiceProductoMemory productService;
+	private ServiceLineaPedidoMemory servicioLineaPedido;
 	
 	/**
 	 * Busca todos los productos y sus cantidades
 	 * @return devuelve los productos y sus cantidades
 	 */
-	public List<LineaPedido> getAll(){
+	public List<LineaPedido> getAll(Pedido pedido){
 		
-		return ;
+		return pedido.getLineasPedido();
 	}
 	
 	/**
@@ -41,23 +41,6 @@ public class ServicePedidoMemory {
 		return usuario.getPedidos();
 		
 	}
-	
-
-	/**
-	 * Metodo para añadir un producto a un pedido
-	 * @param listaCantidades
-	 */
-	public void addProducto(Integer[] listaCantidades) {
-		
-		List<Producto> listaDeProductos = this.productService.findAll();
-		List<LineaPedido> temp = new ArrayList<>();
-		
-		for(int i = 0; i<listaCantidades.length; i++) {
-			temp.put(listaDeProductos.get(i), listaCantidades[i]);
-		}
-		
-		this.ProYCan = temp;
-	}
 
 	
 	/**
@@ -67,19 +50,14 @@ public class ServicePedidoMemory {
 	 * @param metodoEnvio
 	 * @param usuario
 	 */
-	public void editarPedido(int id, Integer[] listaCantidades, String metodoEnvio, Usuario usuario) {
+	public void editarPedido(int id, Integer[] cantidades, String metodoEnvio, Usuario usuario) {
 		
 		Pedido pedido = servicioUser.getPedidoById(id, usuario);
 
 		pedido.setMetodoEnvio(metodoEnvio);
-		List<LineaPedido> mapAux = new ArrayList<>();
-		List<Producto> listaDeProductos = productService.findAll();
+		pedido.setLineasPedido(servicioLineaPedido.editarLineasPedido(cantidades));
+
 		
-		for(int i=0; i<listaCantidades.length; i++) {
-			mapAux.add(listaDeProductos.get(i), listaCantidades[i]);
-		}
-		
-		pedido.setLineasPedido(mapAux);
 		
 	}
 	

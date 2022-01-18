@@ -5,6 +5,7 @@
 	<meta charset="utf-8">
 	<title>Login E-Market</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	
 </head>
 
 <body style="width: 100%; margin: 0%; padding: 0%;">
@@ -15,10 +16,10 @@
 				<p style="margin-left: 1%;">Tu supermercado de confianza</p>
 			</div>
 			<div class="col-2 offset-4">
-				<button class="btn btn-default" style="margin-left: 1%;">Inicio</button>
+				<a href="inicio.html"><button class="btn btn-default" style="margin-left: 1%;">Inicio</button></a>
 			</div>
 		</div>
-		<div style="border-width: 1px; border-style: groove; border-color: rgba(0, 0, 0, 0.494);">
+		<div style="border-width: 1px; border-style: groove; border-color: rgba(0, 0, 0, 0.494); width: 25%;">
 	    	<form method="post" action="#" th:object="${usuario}" th:action=" @{/inicio/submit}" >
 				<div class="form-group">
 

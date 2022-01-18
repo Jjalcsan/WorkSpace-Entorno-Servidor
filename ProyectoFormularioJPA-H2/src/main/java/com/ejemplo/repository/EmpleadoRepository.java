@@ -11,6 +11,7 @@ import com.ejemplo.model.Empleado;
 public interface EmpleadoRepository 
 extends JpaRepository<Empleado, Long>{
 
+	
 List<Empleado> findByNombreContainsIgnoreCaseOrEmailContainsIgnoreCaseOrTelefonoContainsIgnoreCase(String nombre, String email, String telefono);
 
 @Query("select e from Empleado e where lower(e.nombre) like %?1% or lower(e.email) like %?1% or lower(e.telefono) like %?1%") 

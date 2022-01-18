@@ -4,11 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+@Entity
+@Table(name = "usuario")
 public class Usuario {
 
-
+	
+	
+	private int id;
 	private String nombre;
 	@NotEmpty(message="Este campo es obligatorio") 
 	private String nick;
@@ -57,6 +67,17 @@ public class Usuario {
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//Setters y Getters
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	@Column(name = "nombre", nullable = false)
 	public String getNombre() {
 		return nombre;
 	}
@@ -65,6 +86,7 @@ public class Usuario {
 		this.nombre = nombre;
 	}
 
+	@Column(name = "nick", nullable = false)
 	public String getNick() {
 		return nick;
 	}
@@ -73,6 +95,7 @@ public class Usuario {
 		this.nick = nick;
 	}
 
+	@Column(name = "contra", nullable = false)
 	public String getContra() {
 		return contra;
 	}
@@ -81,6 +104,7 @@ public class Usuario {
 		this.contra = contra;
 	}
 
+	@Column(name = "email", nullable = false)
 	public String getEmail() {
 		return email;
 	}
@@ -89,6 +113,7 @@ public class Usuario {
 		this.email = email;
 	}
 
+	@Column(name = "telefono", nullable = false)
 	public String getTelefono() {
 		return telefono;
 	}
@@ -97,6 +122,7 @@ public class Usuario {
 		this.telefono = telefono;
 	}
 
+	@Column(name = "direccion", nullable = false)
 	public String getDireccion() {
 		return direccion;
 	}
@@ -105,6 +131,7 @@ public class Usuario {
 		this.direccion = direccion;
 	}
 
+	@Column(name = "pedidos", nullable = true)
 	public List<Pedido> getPedidos() {
 		return pedidos;
 	}
