@@ -3,17 +3,24 @@ package com.ejemplo.demo.model;
 import java.util.Objects;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "productos")
 public class Producto {
 	
-	private static int contador = 1;
-	
-	private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	@Column(name = "nombre", nullable = false)
 	private String nombre;
+	@Column(name = "precio", nullable = false )
 	private double precio;
+	@Column(name = "url", nullable = false)
 	private String url;
 	
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -21,10 +28,9 @@ public class Producto {
 	
 	public Producto() {}
 	
-	public Producto(int id, String nombre, double precio) {
+	public Producto(String nombre, double precio) {
 		
 		super();
-		this.id = contador++;
 		this.nombre = nombre;
 		this.precio = precio;
 		
@@ -33,17 +39,14 @@ public class Producto {
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//Setters y Getters
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	@Column(name = "nombre", nullable = false)
 	public String getNombre() {
 		return nombre;
 	}
@@ -52,7 +55,6 @@ public class Producto {
 		this.nombre = nombre;
 	}
 
-	@Column(name = "nombre", nullable = false)
 	public double getPrecio() {
 		return precio;
 	}
@@ -61,7 +63,6 @@ public class Producto {
 		this.precio = precio;
 	}
 	
-	@Column(name = "url", nullable = false)
 	public String getUrl() {
 		return url;
 	}

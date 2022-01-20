@@ -9,15 +9,20 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotEmpty;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "pedidos")
 public class Pedido {
 
-	private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	@Column(name = "fecha", nullable = false)
 	private LocalDate fecha;
+	@Column(name = "lineasPedido", nullable = false)
 	private List<LineaPedido> lineasPedido;
-	@NotEmpty
+	@Column(name = "metodoEnvio", nullable = false)
 	private String metodoEnvio;
 	
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -25,14 +30,7 @@ public class Pedido {
 	
 	public Pedido() {}
 	
-	public Pedido(int id) {
-		
-		super();
-		this.id= id;
-		
-	}
-	
-	public Pedido (List<LineaPedido> lineasPedido, @NotEmpty String metodoEnvio) {
+	public Pedido (List<LineaPedido> lineasPedido, String metodoEnvio) {
 		
 		super();
 		this.fecha = LocalDate.now();
@@ -44,17 +42,16 @@ public class Pedido {
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//Setters y Getters
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	public int getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	@Column(name = "fecha", nullable = false)
+
 	public LocalDate getFecha() {
 		return fecha;
 	}
@@ -63,7 +60,6 @@ public class Pedido {
 		this.fecha = fecha;
 	}
 
-	@Column(name = "lineasPedido", nullable = false)
 	public List<LineaPedido> getLineasPedido() {
 		return lineasPedido;
 	}
@@ -72,7 +68,6 @@ public class Pedido {
 		this.lineasPedido = lineasPedido;
 	}
 	
-	@Column(name = "metodoEnvio", nullable = false)
 	public String getMetodoEnvio() {
 		return metodoEnvio;
 	}

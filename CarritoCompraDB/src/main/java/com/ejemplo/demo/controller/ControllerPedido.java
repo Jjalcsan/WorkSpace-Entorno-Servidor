@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ejemplo.demo.model.Pedido;
 import com.ejemplo.demo.model.Usuario;
-import com.ejemplo.demo.service.ServicePedidoMemory;
-import com.ejemplo.demo.service.ServiceProductoMemory;
-import com.ejemplo.demo.service.ServiceUsuarioMemory;
+import com.ejemplo.demo.service.ServicePedido;
+import com.ejemplo.demo.service.ServiceProducto;
+import com.ejemplo.demo.service.ServiceUsuario;
 
 @Controller
 public class ControllerPedido{
@@ -23,13 +23,13 @@ public class ControllerPedido{
 	private HttpSession session;
 	 
 	@Autowired
-	private ServiceUsuarioMemory usuarioService;
+	private ServiceUsuario usuarioService;
 	
 	@Autowired
-	private ServicePedidoMemory pedidoService;
+	private ServicePedido pedidoService;
 	
 	@Autowired
-	private ServiceProductoMemory productoService;
+	private ServiceProducto productoService;
 	
 	
 	private static final String USUARIOSTRING = "usuario";

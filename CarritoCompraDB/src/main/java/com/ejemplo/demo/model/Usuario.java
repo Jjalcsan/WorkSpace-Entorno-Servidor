@@ -4,29 +4,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "usuario")
 public class Usuario {
 
 	
-	
-	private int id;
+	@Column(name = "nombre", nullable =  false)
 	private String nombre;
-	@NotEmpty(message="Este campo es obligatorio") 
+	@Id
 	private String nick;
-	@NotEmpty(message="Este campo es obligatorio")
+	@Column(name = "contra", nullable =  false)
 	private String contra;
+	@Column(name = "email", nullable =  false)
 	private String email;
+	@Column(name = "telefono", nullable =  false)
 	private String telefono;
+	@Column(name = "direccion", nullable =  false)
 	private String direccion;
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Pedido> pedidos = new ArrayList<>();
 	
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -37,8 +40,6 @@ public class Usuario {
 	public Usuario( String nick) {
 		
 		this.nick = nick;
-		this.contra = contra;
-		this.pedidos = pedidos;
 		
 	}
 
@@ -46,7 +47,6 @@ public class Usuario {
 		
 		this.nick = nick;
 		this.contra = contra;
-		this.pedidos = pedidos;
 		
 	}
 	
@@ -60,24 +60,12 @@ public class Usuario {
 		this.email = email;
 		this.telefono = telefono;
 		this.direccion = direccion;
-		this.pedidos = pedidos;
 		
 	}
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//Setters y Getters
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-	
-	@Column(name = "nombre", nullable = false)
 	public String getNombre() {
 		return nombre;
 	}
@@ -86,7 +74,6 @@ public class Usuario {
 		this.nombre = nombre;
 	}
 
-	@Column(name = "nick", nullable = false)
 	public String getNick() {
 		return nick;
 	}

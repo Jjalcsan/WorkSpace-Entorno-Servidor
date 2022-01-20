@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html  xmlns:th="http://www.thymeleaf.org" lang="es">
+<head> 
+
+	<meta charset="utf-8">
+	<title>E-Market</title> 
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"></head>
+<body>
+
+	<div id="div-general">
+	<div id="div-contenido">
+		<form th:action="@{/catalogo/inicioUsuario}" method="post">
+		
+		<h2>Datos del usuario</h2>
+	     
+		<table id="tablaUsu">
+			<tr>
+			
+				<th scope="col">Email</th>
+				<th scope="col">Telefono</th>
+				<th scope="col">Direccion</th>
+				<th scope="col">Metodo de envio</th>
+				
+			</tr>
+			<tr>
+			
+				<td th:text="${usuario.getEmail()}"></td>
+				<td th:text="${usuario.getTelefono()}"></td>
+				<td th:text="${usuario.getDireccion()}"></td>	
+				
+				<td>
+					Normal<input type="radio" name="metodoEnvio" value="Normal" checked="checked"/>
+					Express<input type="radio" name="metodoEnvio" value="Express"/>
+				</td>
+			</tr>
+		</table>
+		
+		<h2>Datos del pedido</h2>
+		
+		<table  id="tablaPed">
+			<tr>
+			
+				<th scope="col">Producto</th>
+				<th scope="col">Unidades</th>
+				<th scope="col">Total</th>
+				
+			</tr>
+			<tr th:each="producto : ${mapAux}">
+				<td th:if="${producto.value>0}" th:text="${producto.key.getNombre()}"></td>
+				<td th:if="${producto.value>0}" th:text="${producto.value}"></td>
+				<td th:if="${producto.value>0}" th:text="${producto.key.getPrecio()*producto.value}">€</td>
+			</tr>
+		</table>
+		
+	     	<button type="submit" id="boton">Finalizar pedido</button>
+	     	
+		</form>
+	</div>
+	</div>
+</body>
+</html>
