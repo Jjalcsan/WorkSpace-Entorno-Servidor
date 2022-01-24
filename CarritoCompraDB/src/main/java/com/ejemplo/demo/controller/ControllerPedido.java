@@ -132,7 +132,7 @@ public class ControllerPedido{
 		if(session.getAttribute(USUARIOSTRING) != null){
 			
 			Usuario usuarioLogado = (Usuario) session.getAttribute(USUARIOSTRING);
-			usuarioService.addPedido(usuarioLogado, pedidoService.getAll(), metodoEnvio);
+			usuarioService.addPedido(usuarioLogado, pedidoService.getAll(null), metodoEnvio);
 
 			model.addAttribute(LISTAPEDIDOSSTRING, pedidoService.findPedidoUsuario(usuarioLogado));
 			 
@@ -162,7 +162,7 @@ public class ControllerPedido{
 			
 			model.addAttribute(USUARIOSTRING, usuarioLogado);
 			model.addAttribute("pedido", pedido);
-			model.addAttribute("ProYCan", pedido.getProductos());
+			model.addAttribute("ProYCan", pedido.getLineasPedido());
 			
 			return "/editarPedido";
 			
@@ -193,7 +193,7 @@ public class ControllerPedido{
 			Pedido pedido = usuarioService.getPedidoById(id, usuario);
 			model.addAttribute(USUARIOSTRING, usuario);
 			model.addAttribute("pedido", pedido);
-			model.addAttribute("ProYCan", pedido.getProductos());
+			model.addAttribute("ProYCan", pedido.getLineasPedido());
 			 
 			return INICIO;
 			
