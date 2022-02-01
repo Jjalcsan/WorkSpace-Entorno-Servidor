@@ -1,5 +1,7 @@
 package com.ejemplo.demo.repository;
 
-public class UsuarioRepository {
+import org.springframework.data.jpa.repository.JpaRepository
+
+public class UsuarioRepository extends JpaRepository<Usuario, String>{
 
 }

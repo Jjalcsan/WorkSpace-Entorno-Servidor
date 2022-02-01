@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.ejemplo.demo.model.Producto;
 
 @Service
-public class ServiceProductoMemory {
+public class ServiceProducto {
 	
 	private List<Producto> catalogo = new ArrayList<>();
 

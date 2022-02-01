@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.ejemplo.demo.model.Usuario;
-import com.ejemplo.demo.service.ServiceUsuarioMemory;
+import com.ejemplo.demo.service.ServiceUsuario;
 
 @Controller
 public class ControllerLogin {
@@ -21,7 +21,7 @@ public class ControllerLogin {
 	 private HttpSession session;
 	 
 	 @Autowired
-	 private ServiceUsuarioMemory usuarioServicio;
+	 private ServiceUsuario usuarioServicio;
 	 
 	 private static final String USUARIOSTRING = "usuario";
 

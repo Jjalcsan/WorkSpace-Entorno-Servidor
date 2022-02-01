@@ -12,9 +12,10 @@ import com.ejemplo.demo.model.Pedido;
 import com.ejemplo.demo.model.Usuario;
 
 @Service
-public class ServiceUsuarioMemory {
+public class ServiceUsuario {
 
-	private List<Usuario> registrados = new ArrayList<>();
+	@Autowired
+	private 
 	
 	/**
 	 * Metodo booleano para comprobar si existe un usuario por su nick y contraseña para la validacion del login
@@ -24,18 +25,7 @@ public class ServiceUsuarioMemory {
 	 */
 	public boolean existeUsuario(String nick, String contra) {
 		
-		boolean encontrado = false;
-		int i = 0;
 		
-		while (!encontrado && i<registrados.size()) {
-			if(registrados.get(i).getNick().equals(nick) && registrados.get(i).getContra().equals(contra)){
-				
-				encontrado = true;
-				
-			}else {i++;}
-		}
-		
-		return encontrado;
 		
 	}
 	

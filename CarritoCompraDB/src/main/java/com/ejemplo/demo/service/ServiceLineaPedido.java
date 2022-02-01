@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.ejemplo.demo.model.LineaPedido;
 import com.ejemplo.demo.model.Producto;
 
-public class ServiceLineaPedidoMemory {
+public class ServiceLineaPedido {
 	
 	@Autowired
-	private ServiceProductoMemory serviceProducto;
+	private ServiceProducto serviceProducto;
 	
 	/*public void addProducto(Integer[] listaCantidades) {
 		

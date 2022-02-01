@@ -14,13 +14,13 @@ import com.ejemplo.demo.model.Producto;
 import com.ejemplo.demo.model.Usuario;
 
 @Service
-public class ServicePedidoMemory {
+public class ServicePedido {
 	
 	@Autowired
-	private ServiceUsuarioMemory servicioUser;
+	private ServiceUsuario servicioUser;
 	
 	@Autowired
-	private ServiceLineaPedidoMemory servicioLineaPedido;
+	private ServiceLineaPedido servicioLineaPedido;
 	
 	/**
 	 * Busca todos los productos y sus cantidades
@@ -51,11 +51,7 @@ public class ServicePedidoMemory {
 	 * @param usuario
 	 */
 	public void editarPedido(int id, Integer[] cantidades, String metodoEnvio, Usuario usuario) {
-		
-		Pedido pedido = servicioUser.getPedidoById(id, usuario);
 
-		pedido.setMetodoEnvio(metodoEnvio);
-		pedido.setLineasPedido(servicioLineaPedido.editarLineasPedido(cantidades));
 
 		
 		
