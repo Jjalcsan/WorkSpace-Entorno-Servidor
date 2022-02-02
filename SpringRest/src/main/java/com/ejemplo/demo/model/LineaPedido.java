@@ -1,31 +1,41 @@
 package com.ejemplo.demo.model;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "pedido")
+@Table(name = "LineaPedido")
 public class LineaPedido {
 	
+	private int contador = 1;
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "pedido_id")
-	@JoinColumn(name = "pedido")
-	private int pedido_id;
+	@ManyToOne(fetch= FetchType.EAGER)
+	@JoinColumn(name = "pedido_id")
+	private Pedido pedido;
 	
-	@Column(name = "producto_id")
-	@JoinColumn(name = "producto")
-	private int producto_id;
+	@ManyToOne(fetch= FetchType.EAGER)
+	@JoinColumn(name = "producto_id")
+	private Producto producto;
 	
-	@Column(name = "cantidad")
+	@Column(name = "cantidad", nullable = false)
 	private double cantidad;
+
+	public LineaPedido() {
+		
+		this.id = contador;
+		contador++;
+		
+	}
 
 	public int getId() {
 		return id;
@@ -35,20 +45,20 @@ public class LineaPedido {
 		this.id = id;
 	}
 
-	public int getPedido_id() {
-		return pedido_id;
+	public Pedido getPedido() {
+		return pedido;
 	}
 
-	public void setPedido_id(int pedido_id) {
-		this.pedido_id = pedido_id;
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
 	}
 
-	public int getProducto_id() {
-		return producto_id;
+	public Producto getProducto() {
+		return producto;
 	}
 
-	public void setProducto_id(int producto_id) {
-		this.producto_id = producto_id;
+	public void setProducto(Producto producto) {
+		this.producto = producto;
 	}
 
 	public double getCantidad() {
@@ -57,6 +67,30 @@ public class LineaPedido {
 
 	public void setCantidad(double cantidad) {
 		this.cantidad = cantidad;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(cantidad, id, pedido, producto);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		LineaPedido other = (LineaPedido) obj;
+		return Double.doubleToLongBits(cantidad) == Double.doubleToLongBits(other.cantidad) && id == other.id
+				&& Objects.equals(pedido, other.pedido) && Objects.equals(producto, other.producto);
+	}
+
+	@Override
+	public String toString() {
+		return "LineaPedido [id=" + id + ", pedido=" + pedido + ", producto=" + producto + ", cantidad=" + cantidad
+				+ "]";
 	}
 
 }

@@ -5,21 +5,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "pedido")
 public class Pedido {
 
+	private int contador = 1;
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	@Column(name = "fecha", nullable = false)
@@ -27,11 +27,8 @@ public class Pedido {
 	
 	@Column(name = "metodoEnvio", nullable = false)
 	private String metodoEnvio;
-	
-	@ManyToOne
-	@JoinColumn(name = "usuario")
-	private Usuario usuario;
-	
+
+	@OneToMany(cascade = CascadeType.ALL, fetch= FetchType.EAGER, orphanRemoval = true)
 	private List<LineaPedido> lineasPedido;
 	
 	@Column(name = "total")
@@ -40,13 +37,21 @@ public class Pedido {
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//Constructores
 	
-	public Pedido() {}
+	public Pedido() {
+		
+		super();
+		this.id = contador;
+		this.lineasPedido = new ArrayList<>();
+		contador++;
+		
+	}
 	
 	public Pedido(int id) {
 		
 		super();
-		this.id= id;
-		this.lineasPedido= new ArrayList<>();
+		this.id = contador;
+		this.lineasPedido = new ArrayList<>();
+		contador++;
 		
 	}
 	
@@ -55,7 +60,7 @@ public class Pedido {
 		super();
 		this.fecha = LocalDate.now();
 		this.metodoEnvio = metodoEnvio;
-		this.lineasPedido= new ArrayList<>();
+		this.lineasPedido = new ArrayList<>();
 		
 	}
 
@@ -95,14 +100,6 @@ public class Pedido {
 	public List<LineaPedido> getLineasPedido() {
 		return lineasPedido;
 	}
-	
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
 
 	public double getTotal() {
 		return total;
@@ -117,7 +114,7 @@ public class Pedido {
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(fecha, id, lineasPedido, metodoEnvio, usuario);
+		return Objects.hash(fecha, id, lineasPedido, metodoEnvio);
 	}
 
 	@Override
@@ -130,13 +127,12 @@ public class Pedido {
 			return false;
 		Pedido other = (Pedido) obj;
 		return Objects.equals(fecha, other.fecha) && id == other.id && Objects.equals(lineasPedido, other.lineasPedido)
-				&& Objects.equals(metodoEnvio, other.metodoEnvio) && Objects.equals(usuario, other.usuario);
+				&& Objects.equals(metodoEnvio, other.metodoEnvio);
 	}
 
 	@Override
 	public String toString() {
-		return "Pedido [id=" + id + ", fecha=" + fecha + ", metodoEnvio=" + metodoEnvio + ", usuario=" + usuario
-				+ ", lineasPedido=" + lineasPedido + "]";
+		return "Pedido [id=" + id + ", fecha=" + fecha + ", metodoEnvio=" + metodoEnvio + ", lineasPedido=" + lineasPedido + "]";
 	}
 
 

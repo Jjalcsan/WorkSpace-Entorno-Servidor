@@ -1,10 +1,15 @@
 package com.ejemplo.demo.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -14,20 +19,23 @@ public class Usuario {
 	@Id
 	private String nick;
 	
-	@Column(name = "contra")
+	@Column(name = "contra", nullable = false)
 	private String contra;
 	
-	@Column(name = "nombre")
+	@Column(name = "nombre", nullable = false)
 	private String nombre;
 	
-	@Column(name = "email")
+	@Column(name = "email", nullable = false)
 	private String email;
 	
-	@Column(name = "telefono")
+	@Column(name = "telefono", nullable = false)
 	private String telefono;
 	
-	@Column(name = "direccion")
+	@Column(name = "direccion", nullable = false)
 	private String direccion;
+	
+	@OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Pedido> pedidos;
 	
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//Constructores
@@ -57,6 +65,7 @@ public class Usuario {
 		this.email = email;
 		this.telefono = telefono;
 		this.direccion = direccion;
+		this.pedidos = new ArrayList<>();
 		
 	}
 
@@ -110,6 +119,14 @@ public class Usuario {
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
+	
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 	//Metodos Override	
@@ -138,11 +155,5 @@ public class Usuario {
 		return "Usuario [nombre=" + nombre + ", nick=" + nick + ", contra=" + contra + ", email=" + email
 				+ ", telefono=" + telefono + ", direccion=" + direccion + "]";
 	}
-
-
-
-	
-	
-	
 	
 }
