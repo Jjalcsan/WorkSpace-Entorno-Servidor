@@ -35,6 +35,15 @@ public class Producto {
 		this.precio = precio;
 		
 	}
+	
+	public Producto(String nombre, double precio, String url) {
+		
+		super();
+		this.nombre = nombre;
+		this.precio = precio;
+		this.url = url;
+				
+	}
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//Setters y Getters

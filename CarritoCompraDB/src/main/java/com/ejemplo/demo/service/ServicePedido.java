@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,7 @@ import com.ejemplo.demo.model.LineaPedido;
 import com.ejemplo.demo.model.Pedido;
 import com.ejemplo.demo.model.Producto;
 import com.ejemplo.demo.model.Usuario;
+import com.ejemplo.demo.repository.PedidoRepository;
 
 @Service
 public class ServicePedido {
@@ -20,28 +23,54 @@ public class ServicePedido {
 	private ServiceUsuario servicioUser;
 	
 	@Autowired
+	private PedidoRepository repoPed;
+	
+	@Autowired
 	private ServiceLineaPedido servicioLineaPedido;
 	
 	/**
-	 * Busca todos los productos y sus cantidades
-	 * @return devuelve los productos y sus cantidades
+	 * Busca todos los pedidos
+	 * @return devuelve toda la lista de pedidos
 	 */
-	public List<LineaPedido> getAll(Pedido pedido){
+	public List<Pedido> getAll(){
 		
-		return pedido.getLineasPedido();
+		return repoPed.findAll();
 	}
 	
 	/**
-	 * Metodo para buscar los pedidos asociados a un usuario
-	 * @param usuario
-	 * @return nos devolvera la lista de pedidos
+	 * Metodo para buscar un pedido por su ID
+	 * @param id
+	 * @return nos devolvera el pedido o en caso de no existir devolvera null
 	 */
-	public List<Pedido>findPedidoUsuario(Usuario usuario){
+	public Pedido findPedido(Integer id){
 		
-		return usuario.getPedidos();
+		return repoPed.findById(id).orElse(null);
 		
 	}
 
+	/**
+	 * Metodo para añadir un nuevo pedido a la lista de pedidos
+	 * @param pedido
+	 */
+	@Transactional
+	public Pedido addPedido(Pedido pedido) {
+		
+		return repoPed.save(pedido);
+		
+	}
+	
+	/*
+	public void delPedido(Pedido pedido) {
+		
+		int i = 0;
+		
+		while(pedido.getLineasPedido().size()>i) {
+			
+			LineaPedido linPed = pedido.getLineasPedido();
+		}
+
+		
+	}
 	
 	/**
 	 * Metodo para editar el pedido recibiendo los nuevos parametros
@@ -50,16 +79,14 @@ public class ServicePedido {
 	 * @param metodoEnvio
 	 * @param usuario
 	 */
-	public void editarPedido(int id, Integer[] cantidades, String metodoEnvio, Usuario usuario) {
+	/*
+	public Pedido editarPedido( String nick) {
 		
-		Pedido pedido = servicioUser.getPedidoById(id, usuario);
-
-		pedido.setMetodoEnvio(metodoEnvio);
-		pedido.setLineasPedido(servicioLineaPedido.editarLineasPedido(cantidades));
+		return repoPed.findBy(null, null)
 
 		
 		
-	}
+	}*/
 	
 	
 

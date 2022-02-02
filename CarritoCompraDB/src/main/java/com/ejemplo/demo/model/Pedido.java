@@ -2,13 +2,14 @@ package com.ejemplo.demo.model;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -24,6 +25,9 @@ public class Pedido {
 	private List<LineaPedido> lineasPedido;
 	@Column(name = "metodoEnvio", nullable = false)
 	private String metodoEnvio;
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Usuario usuario;
+	
 	
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//Constructores
@@ -79,29 +83,7 @@ public class Pedido {
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 	//Metodos Override
 	
-	@Override
-	public int hashCode() {
-		return Objects.hash(fecha, id, lineasPedido, metodoEnvio);
-	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Pedido other = (Pedido) obj;
-		return Objects.equals(fecha, other.fecha) && id == other.id && Objects.equals(lineasPedido, other.lineasPedido)
-				&& Objects.equals(metodoEnvio, other.metodoEnvio);
-	}
-
-	@Override
-	public String toString() {
-		return "Pedido [id=" + id + ", fecha=" + fecha + ", lineasPedido=" + lineasPedido + ", metodoEnvio="
-				+ metodoEnvio + "]";
-	}
 
 
 

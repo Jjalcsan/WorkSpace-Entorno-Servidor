@@ -42,6 +42,7 @@ public class ControllerPedido{
 	 * @param model
 	 * @return nos mostrara la pagina del usuario o nos llevara al login si no estamos autenticados
 	 */
+	/*
 	@GetMapping("/inicioUsuario")
 	public String listarPedidos(Model model) {
 		 
@@ -59,7 +60,7 @@ public class ControllerPedido{
 			return NOLOGADO;
 			 
 		}
-	}
+	}*/
 	
 	/**
 	 * Metodo cuando entremos a un nuevo pedido que nos mostrara la lista de productos disponibles
@@ -88,6 +89,7 @@ public class ControllerPedido{
 	 * @param listaCantidades
 	 * @return nos devolvera al login si no estamos en sesion o en caso contrario al resumen del pedido
 	 */
+	/*
 	@PostMapping("/catalogo/submit")
 	public String mostrarPedido(Model model, @RequestParam(required=false,name="unidades") Integer [] listaCantidades) {
 		
@@ -118,6 +120,7 @@ public class ControllerPedido{
 		return NOLOGADO;
 				
 	}
+	*/
 	
 
 	/**
@@ -126,6 +129,7 @@ public class ControllerPedido{
 	 * @param metodoEnvio
 	 * @return nos llevara a la pantalla de usuario o nos llevara al login si no estamos autenticados
 	 */
+	/*
 	@PostMapping("/catalogo/inicioUsuario")
 	public String volverInicio(Model model, @RequestParam(required=false,value="metodoEnvio") String metodoEnvio) {
 		 
@@ -145,7 +149,7 @@ public class ControllerPedido{
 			
 		}
 		 
-	}
+	}*/
 	
 	/**
 	 * Metodo para editar un pedido accediendo por su id
@@ -153,6 +157,7 @@ public class ControllerPedido{
 	 * @param id
 	 * @return Accederemos a la pantalla de modificar el pedido o nos llevara al login si no estamos autenticados
 	 */
+	/*
 	@GetMapping("/pedido/editarPedido/{id}")
 	public String editarPedido(Model model, @PathVariable int id) {
 		if(session.getAttribute(USUARIOSTRING) != null){
@@ -173,6 +178,7 @@ public class ControllerPedido{
 			
 		}
 	}
+	*/
 	
 	/**
 	 * Una vez finalizado nos llevara de vuelta al inicio del usuario
@@ -182,6 +188,7 @@ public class ControllerPedido{
 	 * @param model
 	 * @return volveremos al inicio o nos llevara al login si no estamos autenticados
 	 */
+	/*
 	@PostMapping("/editarPedido/submit")
 	public String finalizarPedido(@RequestParam (required=false, value="id") int id, @RequestParam (required=false, value="cantidad") Integer [] listaDeCantidades,
 			@RequestParam (required=false, value="metodoEnvio") String metodoEnvio, Model model) {
@@ -207,6 +214,7 @@ public class ControllerPedido{
 			
 		}
 	}
+	*/
 	
 	/**
 	 * Metodo para borrar un pedido identificandolo por su ID
@@ -214,6 +222,7 @@ public class ControllerPedido{
 	 * @param id
 	 * @return Borrara el pedido o nos llevara al login si no estamos autenticados
 	 */
+	/*
 	@GetMapping("/pedido/borrar/{id}")
 	public String borrarPedido(Model model, @PathVariable int id) {
 		 
@@ -232,7 +241,7 @@ public class ControllerPedido{
 			
 			return NOLOGADO;
 		} 
-	}
+	}*/
 	 
 	 
 }

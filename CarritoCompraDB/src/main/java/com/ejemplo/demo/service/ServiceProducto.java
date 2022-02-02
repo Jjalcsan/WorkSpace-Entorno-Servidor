@@ -1,18 +1,17 @@
 package com.ejemplo.demo.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 
 import org.springframework.stereotype.Service;
 
 import com.ejemplo.demo.model.Producto;
+import com.ejemplo.demo.repository.ProductoRepository;
 
 @Service
 public class ServiceProducto {
 	
-	private List<Producto> catalogo = new ArrayList<>();
+	private ProductoRepository repoProd;
 
 
 	/**
@@ -21,7 +20,7 @@ public class ServiceProducto {
 	 */
 	public List<Producto> findAll(){
 		
-		return catalogo;
+		return repoProd.findAll();
 		
 	}
 	
@@ -32,31 +31,10 @@ public class ServiceProducto {
 	 */
 	public Producto getById(int id) {
 		
-		Producto buscado = null;
-				
-		for (Producto p : catalogo) {
-			if(p.getId()==id) {
-				buscado = p;
-			}
-		}
-		
-		return buscado;
+		return repoProd.findById(id).orElse(null);
 		
 	}
 	
-	/**
-	 * Metodo init que añadira una serie de productos
-	 */
-	@PostConstruct
-	public void init() {
-		catalogo.add(new Producto(1, "Leche", 1.5));
-		catalogo.add(new Producto(2, "Huevos", 2.0));
-		catalogo.add(new Producto(3, "Cereales", 2.5));
-		catalogo.add(new Producto(4, "Carne", 3.0));
-		catalogo.add(new Producto(5, "Pescado", 3.5));
-		catalogo.add(new Producto(6, "Pizza", 4.0));
-		
-		
-	}
+
 	
 }

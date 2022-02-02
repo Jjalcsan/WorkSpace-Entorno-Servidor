@@ -10,7 +10,7 @@
 
 	<div id="div-general">
 	<div id="div-contenido">
-		<form th:action="@{/catalogo/submit}" method="post">
+		<form th:action="@{/catalogo/submit}" th:object="${producto2}" method="post">
 		<h1>Nuestra seleccion</h1>
 		<table>
 			<tr>
@@ -24,7 +24,7 @@
 			
 				<td th:text="${producto.getNombre()}"></td>
 				<td th:text="${producto.getPrecio()}"></td>
-				<td><input type="number" name="unidades" min="0" value="0"/></td>
+				<td><input type="number" name="unidades" min="0" value="0" th:field="*{cantidad}/></td>
 				
 			</tr>
 		</table>

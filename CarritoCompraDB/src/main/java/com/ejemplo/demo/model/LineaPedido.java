@@ -5,6 +5,7 @@ import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -14,9 +15,11 @@ public class LineaPedido {
 	
 	@Id
 	@ManyToOne
+	@JoinColumn(name = "producto_id")
 	private Producto producto;
 	@Id
 	@ManyToOne
+	@JoinColumn(name = "pedido_id")
 	private Pedido pedido;
 	@Column(name = "cantidad")
 	private int cantidad;
