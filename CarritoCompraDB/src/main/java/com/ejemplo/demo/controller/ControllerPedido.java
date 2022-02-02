@@ -2,10 +2,9 @@ package com.ejemplo.demo.controller;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,10 +14,13 @@ import com.ejemplo.demo.model.Usuario;
 import com.ejemplo.demo.service.ServicePedido;
 import com.ejemplo.demo.service.ServiceProducto;
 import com.ejemplo.demo.service.ServiceUsuario;
+=======
+>>>>>>> 59a7b8c7471c94b01ddda3e8899fdf1620cd7a25
 
 @Controller
 public class ControllerPedido{
 	
+<<<<<<< HEAD
 	@Autowired
 	private HttpSession session;
 	 
@@ -242,6 +244,17 @@ public class ControllerPedido{
 			return NOLOGADO;
 		} 
 	}*/
+=======
+	@GetMapping("/paginaUsuario")
+	public void showPaginaUsuario() {
+		
+	}
+	
+	@GetMapping("/usu")
+	public void w() {
+		
+	}
+>>>>>>> 59a7b8c7471c94b01ddda3e8899fdf1620cd7a25
 	 
 	 
 }

@@ -5,8 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+<<<<<<< HEAD
 import javax.transaction.Transactional;
 
+=======
+>>>>>>> 59a7b8c7471c94b01ddda3e8899fdf1620cd7a25
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +26,7 @@ public class ServicePedido {
 	private ServiceUsuario servicioUser;
 	
 	@Autowired
+<<<<<<< HEAD
 	private PedidoRepository repoPed;
 	
 	@Autowired
@@ -88,6 +92,45 @@ public class ServicePedido {
 		
 	}*/
 	
+=======
+	private ServiceLineaPedido servicioLineaPedido;
+	
+	/**
+	 * Busca todos los productos y sus cantidades
+	 * @return devuelve los productos y sus cantidades
+	 */
+	public List<LineaPedido> getAll(Pedido pedido){
+		
+		return pedido.getLineasPedido();
+	}
+	
+	/**
+	 * Metodo para buscar los pedidos asociados a un usuario
+	 * @param usuario
+	 * @return nos devolvera la lista de pedidos
+	 */
+	public List<Pedido>findPedidoUsuario(Usuario usuario){
+		
+		return usuario.getPedidos();
+		
+	}
+
+	
+	/**
+	 * Metodo para editar el pedido recibiendo los nuevos parametros
+	 * @param id
+	 * @param listaCantidades
+	 * @param metodoEnvio
+	 * @param usuario
+	 */
+	public void editarPedido(int id, Integer[] cantidades, String metodoEnvio, Usuario usuario) {
+
+
+		
+		
+	}
+	
+>>>>>>> 59a7b8c7471c94b01ddda3e8899fdf1620cd7a25
 	
 
 }
