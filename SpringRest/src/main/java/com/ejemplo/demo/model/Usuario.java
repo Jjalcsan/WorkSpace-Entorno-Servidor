@@ -34,7 +34,7 @@ public class Usuario {
 	@Column(name = "direccion", nullable = false)
 	private String direccion;
 	
-	@OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Pedido> pedidos;
 	
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -52,6 +52,7 @@ public class Usuario {
 		
 		this.nick = nick;
 		this.contra = contra;
+		
 		
 	}
 	

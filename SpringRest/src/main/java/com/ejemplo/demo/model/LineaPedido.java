@@ -4,14 +4,15 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
-@Table(name = "LineaPedido")
+@Table(name = "lineaPedido")
 public class LineaPedido {
 	
 	private int contador = 1;
@@ -19,12 +20,14 @@ public class LineaPedido {
 	@Id
 	private int id;
 	
-	@ManyToOne(fetch= FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name = "pedido_id")
+	@JsonBackReference
 	private Pedido pedido;
 	
-	@ManyToOne(fetch= FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name = "producto_id")
+	@JsonBackReference
 	private Producto producto;
 	
 	@Column(name = "cantidad", nullable = false)
@@ -34,6 +37,16 @@ public class LineaPedido {
 		
 		this.id = contador;
 		contador++;
+		
+	}
+	
+	public LineaPedido(Pedido pedido, Producto producto, double cantidad) {
+		
+		this.id = contador;
+		this.pedido = pedido;
+		this.producto = producto;
+		this.cantidad = cantidad;
+		contador ++;
 		
 	}
 

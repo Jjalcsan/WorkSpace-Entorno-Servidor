@@ -19,11 +19,8 @@ public class Producto {
 	@Column(name = "nombre", nullable = false)
 	private String nombre;
 	
-	@Column(name = "nombre", nullable = false)
+	@Column(name = "precio", nullable = false)
 	private double precio;
-	
-	@Column(name = "url", nullable = false)
-	private String url;
 	
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//Constructores	
@@ -36,7 +33,7 @@ public class Producto {
 		
 	}
 	
-	public Producto(int id, String nombre, double precio) {
+	public Producto(String nombre, double precio) {
 		
 		super();
 		this.id = contador;
@@ -72,14 +69,6 @@ public class Producto {
 
 	public void setPrecio(double precio) {
 		this.precio = precio;
-	}
-	
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
 	}
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	

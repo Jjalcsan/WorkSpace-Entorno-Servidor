@@ -2,116 +2,154 @@ package com.ejemplo.demo.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.ejemplo.demo.model.LineaPedido;
 import com.ejemplo.demo.model.Pedido;
 import com.ejemplo.demo.model.Producto;
 import com.ejemplo.demo.model.Usuario;
+import com.ejemplo.demo.service.LineaPedidoService;
 import com.ejemplo.demo.service.PedidoService;
 import com.ejemplo.demo.service.ProductoService;
 import com.ejemplo.demo.service.UsuarioService;
 
+@RestController
 public class CarritoController {
 
-	@Autowired
-	private HttpSession session;
 	
 	@Autowired
-	private UsuarioService ServiceUsu;
+	private PedidoService servicePed;
 	
 	@Autowired
-	private PedidoService ServicePed;
+	private ProductoService serviceProd;
 	
 	@Autowired
-	private ProductoService ServiceProd;
+	private UsuarioService serviceUsu;
 	
-	private static final String USUARIOSTRING = "usuario";
-	private static final String LISTAPEDIDOSSTRING = "listaDePedidos";
-	private static final String NOLOGADO = "redirect:/inicio";
+	@Autowired
+	private LineaPedidoService serviceLinPed;
 
-
+	@GetMapping("/catalogo")
+	public ResponseEntity<List<Producto>> findAll() {
+		
+		List<Producto> catalogo = serviceProd.findAll();
+		ResponseEntity<List<Producto>> findall = ResponseEntity.ok(catalogo);
+		
+		if(catalogo == null) {
+			
+			findall = ResponseEntity.notFound().build();
+			
+		}
+		
+		return findall;
+		
+	}
 	
-	@GetMapping("/inicioUsuario")
-	public String inicioUsuario(Model model) {
-		 
-		if(session.getAttribute(USUARIOSTRING) != null) {
-			 
-			Usuario usuarioLogado = (Usuario) session.getAttribute(USUARIOSTRING);
-			model.addAttribute(USUARIOSTRING, usuarioLogado);
-			return "inicioUsuario";
-			 
+	@GetMapping("/producto/{id}")
+	public ResponseEntity<Producto> findById(@PathVariable int id) {
+		
+		Producto producto = serviceProd.findById(id);
+		ResponseEntity<Producto> findbyid = ResponseEntity.notFound().build();
+		
+		if(producto != null) {
+			
+			findbyid = ResponseEntity.ok(producto);
+			
+		}
+		
+		return findbyid;
+		
+	}
+	
+	@GetMapping("/pedidos")
+	public ResponseEntity<List<Pedido>> findAllPed() {
+		
+		List<Pedido> pedidos = servicePed.findAll();
+		ResponseEntity<List<Pedido>> findall = ResponseEntity.ok(pedidos);
+		
+		if(pedidos == null) {
+			
+			findall = ResponseEntity.notFound().build();
+			
+		}
+		
+		return findall;
+		
+	}
+	
+	@GetMapping("/pedido/{id}")
+	public ResponseEntity<Pedido> findByIdProd(@PathVariable int id){
+		
+		Pedido pedido = servicePed.findById(id);
+		ResponseEntity<Pedido> findbyid = ResponseEntity.notFound().build();
+		
+		if(pedido != null) {
+			
+			findbyid = ResponseEntity.ok(pedido);
+			
+		}
+		
+		return findbyid;
+		
+		
+	}
+	
+	@PostMapping("/newPedido")
+	public ResponseEntity<Pedido> newPedido(@RequestBody String id){
+		
+		Usuario usu = serviceUsu.findById(id);
+		
+		if (usu == null) {
+			
+			return null;
+			
 		} else {
 			
-			return NOLOGADO;
-			 
-		}
-	}
-	
-	@GetMapping("/inicioUsuario")
-	public String listarPedidos(Model model) {
-		 
-		if(session.getAttribute(USUARIOSTRING) != null) {
-			 
-			Usuario usuarioLogado = (Usuario) session.getAttribute(USUARIOSTRING);
-			model.addAttribute(USUARIOSTRING, usuarioLogado);
-			model.addAttribute(LISTAPEDIDOSSTRING, usuarioLogado.getPedidos());
-			return "inicioUsuario";
-			 
-			 
-		} else {
-			return NOLOGADO;
-			 
-		}
-	}
-	
-	@GetMapping("/inicioUsuario/catalogo")
-	public String nuevoPedido(Model model) {
-		 
-		if(session.getAttribute(USUARIOSTRING) != null) {
+			Pedido pedido = new Pedido();
+			usu.getPedidos().add(pedido);
+			servicePed.add(pedido);
+			return ResponseEntity.status(HttpStatus.CREATED).body(pedido);
 			
-			model.addAttribute("catalogo", ServiceProd.findAll());
-			return "/catalogo";
-		 
-		} else {
-
-			return NOLOGADO;
-			 
 		}
+		
 	}
+	
+	
+	//Delete Pedido
+	
+	//Put Pedido
+	
+	//findAllLineasPedidos
+	@GetMapping("/lineas")
+	public ResponseEntity<List<LineaPedido>> findAllLineas() {
+		
+		List<LineaPedido> lineas = serviceLinPed.findAll();
+		ResponseEntity<List<LineaPedido>> findall = ResponseEntity.ok(lineas);
+		
+		if(lineas == null) {
+			
+			findall = ResponseEntity.notFound().build();
+			
+		}
+		
+		return findall;
+		
+	}
+	
+	//findByIdLinea
+	
+	//Post addLineaPedido
+	
+	//Put editarLineaPedido
+	
+	//Delete LineaPedido
 
-	@RequestMapping(value = "/pedidos", method = RequestMethod.GET)
-	public ResponseEntity<Pedido> listado(){
-		
-		List<Pedido> pedidos = ServicePed.findAll();
-		return new ResponseEntity(pedidos, HttpStatus.OK);
-		
-	}
-	
-	@RequestMapping(value = "/catalogo", method = RequestMethod.GET)
-	public ResponseEntity<Producto> catalogo(){
-		
-		List<Producto> catalogo = ServiceProd.findAll();
-		return new ResponseEntity(catalogo, HttpStatus.OK);
-		
-	}
-	
-	@RequestMapping(value = "/resumen", method = RequestMethod.GET)
-	public ResponseEntity<Pedido> resumen(@Valid @RequestBody Pedido pedido){
-		
-		List<LineaPedido> resumen = ServicePed.
-		
-	}
 	
 }

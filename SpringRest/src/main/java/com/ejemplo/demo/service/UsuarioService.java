@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ejemplo.demo.model.Pedido;
 import com.ejemplo.demo.model.Usuario;
 import com.ejemplo.demo.repository.UsuarioRepository;
 
@@ -38,6 +39,12 @@ public class UsuarioService {
 		}
 		
 		return encontrado;
+		
+	}
+	
+	public List<Pedido> pedidosUsuario(Usuario usuario){
+		
+		return usuario.getPedidos();
 		
 	}
 }

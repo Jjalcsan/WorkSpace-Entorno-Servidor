@@ -3,10 +3,12 @@ package com.ejemplo.demo.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.ejemplo.demo.model.LineaPedido;
 import com.ejemplo.demo.repository.LineaPedidoRepository;
 
+@Service
 public class LineaPedidoService {
 
 	@Autowired
@@ -21,6 +23,12 @@ public class LineaPedidoService {
 	public LineaPedido findById(int id) {
 		
 		return repoLinPed.findById(id).orElse(null);
+		
+	}
+	
+	public LineaPedido add(LineaPedido linea) {
+		
+		return repoLinPed.save(linea);
 		
 	}
 	

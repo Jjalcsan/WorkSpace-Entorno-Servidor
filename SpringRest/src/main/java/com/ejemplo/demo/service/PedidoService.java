@@ -3,11 +3,13 @@ package com.ejemplo.demo.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.ejemplo.demo.model.LineaPedido;
 import com.ejemplo.demo.model.Pedido;
 import com.ejemplo.demo.repository.PedidoRepository;
 
+@Service
 public class PedidoService {
 
 	@Autowired
@@ -76,6 +78,21 @@ public class PedidoService {
 		}
 		
 		return total;
+	}
+	
+	public double precioTotal(Pedido pedido) {
+		
+		double total = 0;
+		List<LineaPedido> lineas = pedido.getLineasPedido();
+		
+		for(LineaPedido linea : lineas) {
+			
+			total += linea.getCantidad()*linea.getProducto().getPrecio();
+			
+		}
+		
+		return total;
+		
 	}
 	
 }
