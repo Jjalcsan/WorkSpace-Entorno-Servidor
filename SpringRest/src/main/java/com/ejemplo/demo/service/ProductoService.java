@@ -14,12 +14,22 @@ public class ProductoService {
 	@Autowired
 	private ProductoRepository repoProd;
 	
+	
+	/**
+	 * Busca todos los producto de la BBDD
+	 * @return devuelve la lista de producto
+	 */
 	public List<Producto> findAll(){
 		
 		return repoProd.findAll();
 		
 	}
 	
+	/**
+	 * Busca un producto por su ID
+	 * @param id
+	 * @return devuelve el producto si lo encuentra o null en caso negativo
+	 */
 	public Producto findById(int id) {
 		
 		return repoProd.findById(id).orElse(null);

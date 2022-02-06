@@ -9,26 +9,34 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "pedido")
 public class Pedido {
-
-	private int contador = 1;
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "fecha", nullable = false)
+	@Column(name = "fecha", nullable = true)
 	private LocalDate fecha;
 	
-	@Column(name = "metodoEnvio", nullable = false)
+	@Column(name = "metodoEnvio", nullable = true)
 	private String metodoEnvio;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch= FetchType.EAGER, orphanRemoval = true)
+	@NotFound(action=NotFoundAction.IGNORE)
+	@JsonManagedReference
 	private List<LineaPedido> lineasPedido;
 	
 	@Column(name = "total")
@@ -40,18 +48,8 @@ public class Pedido {
 	public Pedido() {
 		
 		super();
-		this.id = contador;
+		this.fecha = LocalDate.now();
 		this.lineasPedido = new ArrayList<>();
-		contador++;
-		
-	}
-	
-	public Pedido(int id) {
-		
-		super();
-		this.id = contador;
-		this.lineasPedido = new ArrayList<>();
-		contador++;
 		
 	}
 	

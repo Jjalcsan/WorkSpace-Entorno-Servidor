@@ -4,16 +4,18 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "producto")
 public class Producto {
 	
-	private static int contador = 1;
-	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	@Column(name = "nombre", nullable = false)
@@ -25,21 +27,14 @@ public class Producto {
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//Constructores	
 	
-	public Producto() {
-		
-		super();
-		this.id = contador;
-		contador++;
-		
-	}
+	public Producto() {}
 	
-	public Producto(String nombre, double precio) {
+	public Producto(int id, String nombre, double precio) {
 		
 		super();
-		this.id = contador;
+		this.id = id;
 		this.nombre = nombre;
 		this.precio = precio;
-		contador++;
 		
 	}
 

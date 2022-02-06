@@ -15,18 +15,33 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository repoUsu;
 
+	/**
+	 * Busca todos los usuarios de la BBDD
+	 * @return devuelve la lista de usuarios
+	 */
 	public List<Usuario> findAll(){
 		
 		return repoUsu.findAll();
 		
 	}
 	
+	/**
+	 * Busca un usuario por su nick
+	 * @param nick
+	 * @return devuelve el usuario si lo encuentra o null en caso contrario
+	 */
 	public Usuario findById(String nick) {
 		
 		return repoUsu.findById(nick).orElse(null);
 		
 	}
 	
+	/**
+	 * Comprueba si existe un usuario
+	 * @param nick
+	 * @param contra
+	 * @return devolvera true si existe o false en caso contrario
+	 */
 	public boolean existeUsuario(String nick, String contra) {
 		
 		boolean encontrado = false;
@@ -42,6 +57,11 @@ public class UsuarioService {
 		
 	}
 	
+	/**
+	 * Busca la lista de pedidos asociados con el usuario
+	 * @param usuario
+	 * @return devuelve la lista de pedidos
+	 */
 	public List<Pedido> pedidosUsuario(Usuario usuario){
 		
 		return usuario.getPedidos();

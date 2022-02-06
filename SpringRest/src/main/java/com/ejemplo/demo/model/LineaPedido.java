@@ -4,6 +4,9 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -15,9 +18,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Table(name = "lineaPedido")
 public class LineaPedido {
 	
-	private int contador = 1;
-	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	@ManyToOne
@@ -25,7 +27,7 @@ public class LineaPedido {
 	@JsonBackReference
 	private Pedido pedido;
 	
-	@ManyToOne
+	@ManyToOne(fetch= FetchType.EAGER)
 	@JoinColumn(name = "producto_id")
 	@JsonBackReference
 	private Producto producto;
@@ -33,23 +35,22 @@ public class LineaPedido {
 	@Column(name = "cantidad", nullable = false)
 	private double cantidad;
 
-	public LineaPedido() {
-		
-		this.id = contador;
-		contador++;
-		
-	}
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	//Constructores
+	
+	public LineaPedido() {}
 	
 	public LineaPedido(Pedido pedido, Producto producto, double cantidad) {
-		
-		this.id = contador;
+
 		this.pedido = pedido;
 		this.producto = producto;
 		this.cantidad = cantidad;
-		contador ++;
 		
 	}
 
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	//Setters y Getters
+	
 	public int getId() {
 		return id;
 	}
@@ -82,6 +83,9 @@ public class LineaPedido {
 		this.cantidad = cantidad;
 	}
 
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+	//Metodos Override
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(cantidad, id, pedido, producto);

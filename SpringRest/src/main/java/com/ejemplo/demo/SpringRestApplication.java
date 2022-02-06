@@ -35,12 +35,12 @@ public class SpringRestApplication {
 	CommandLineRunner initP (ProductoRepository repoProd) {
 		return (args) -> {
 			repoProd.saveAll(Arrays.asList(
-					new Producto("Leche", 1.5),
-					new Producto("Huevos", 2.0),
-					new Producto("Cereales", 2.5),
-					new Producto("Carne", 3.0),
-					new Producto("Pescado", 3.5),
-					new Producto("Pizza", 4.0)));
+					new Producto(1, "Leche", 1.5),
+					new Producto(2, "Huevos", 2.0),
+					new Producto(3, "Cereales", 2.5),
+					new Producto(4, "Carne", 3.0),
+					new Producto(5, "Pescado", 3.5),
+					new Producto(6, "Pizza", 4.0)));
 		};
 	}
 }
