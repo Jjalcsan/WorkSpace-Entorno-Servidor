@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+
+	<meta charset="utf-8"> 
+	<title>Catalogo E-Market</title> 
+	<link type="text/css" rel="stylesheet" href="/css/CSScatalogo.css" />
+</head>
+<body>
+
+	<div id="div-general">
+	<div id="div-contenido">
+		
+		<h1>Nuestra seleccion</h1>
+		<table>
+			<tr>
+			
+				<th scope="col">Producto</th>
+				<th scope="col">Precio</th>
+				<th scope="col">Unidades</th>
+                <th scope="col">Añadir</th>
+				
+			</tr>
+			<tr th:each="producto : ${listaDeProductos}">
+            <form th:action="@{/inicio/catalogo}" th:object="${prod}" method="post">
+			
+				<td th:text="${producto.getNombre()}"></td>
+				<td th:text="${producto.getPrecio()}"></td>
+				<td><input type="number" name="unidades" min="0" value="0"/></td>
+                <td><button type="submit" id="submit">Añadir</button></td>
+                <input type="hidden" th:value="${nickUsu}"  name="nickUsu" >
+				<input type="hidden" th:value="${idPed}" name="idPed" >
+				<input type="hidden" th:value="${producto.id}"  th:name="id" th:id="id">
+            </form>
+			</tr>
+		</table>
+		<form th:action="@{/catalogo/submit}"  method="post">
+            <input type="hidden" th:value="${nickUsu}"  name="nickUsu" >
+            <input type="hidden" th:value="${idPed}" name="idPed" >
+            <button type="submit" id="submit" >ENVIAR</button>
+        </form>
+
+	</div>	
+	</div>
+	
+</body>
+</html>
