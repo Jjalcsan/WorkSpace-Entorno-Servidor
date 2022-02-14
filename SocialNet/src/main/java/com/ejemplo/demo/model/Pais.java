@@ -27,14 +27,7 @@ public class Pais {
 	@ManyToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Usuario> residentes;
 
-
-	public int getId() {
-		return id;
-	}
-	
-
 	public Pais() {}
-	
 	
 	public Pais(int id, String nombre) {
 		
@@ -44,6 +37,9 @@ public class Pais {
 		
 	}
 	
+	public int getId() {
+		return id;
+	}
 	
 	public void setId(int id) {
 		this.id = id;

@@ -22,26 +22,7 @@ public class SocialNetApplication {
 		
 		return(args) -> {
 			repoUsu.saveAll(Arrays.asList(
-					new Usuario("nick", "contra", "nombre", "apellidos", "telefono", "email", "direccion", "imagen"),
-					new Usuario("nick", "contra", "nombre", "apellidos", "telefono", "email", "direccion", "imagen"),
-					new Usuario("nick", "contra", "nombre", "apellidos", "telefono", "email", "direccion", "imagen"),
-					new Usuario("nick", "contra", "nombre", "apellidos", "telefono", "email", "direccion", "imagen"),
-					new Usuario("nick", "contra", "nombre", "apellidos", "telefono", "email", "direccion", "imagen"),
-					new Usuario("nick", "contra", "nombre", "apellidos", "telefono", "email", "direccion", "imagen"),
-					new Usuario("nick", "contra", "nombre", "apellidos", "telefono", "email", "direccion", "imagen"),
-					new Usuario("nick", "contra", "nombre", "apellidos", "telefono", "email", "direccion", "imagen"),
-					new Usuario("nick", "contra", "nombre", "apellidos", "telefono", "email", "direccion", "imagen"),
-					new Usuario("nick", "contra", "nombre", "apellidos", "telefono", "email", "direccion", "imagen"),
-					new Usuario("nick", "contra", "nombre", "apellidos", "telefono", "email", "direccion", "imagen"),
-					new Usuario("nick", "contra", "nombre", "apellidos", "telefono", "email", "direccion", "imagen"),
-					new Usuario("nick", "contra", "nombre", "apellidos", "telefono", "email", "direccion", "imagen"),
-					new Usuario("nick", "contra", "nombre", "apellidos", "telefono", "email", "direccion", "imagen"),
-					new Usuario("nick", "contra", "nombre", "apellidos", "telefono", "email", "direccion", "imagen"),
-					new Usuario("nick", "contra", "nombre", "apellidos", "telefono", "email", "direccion", "imagen"),
-					new Usuario("nick", "contra", "nombre", "apellidos", "telefono", "email", "direccion", "imagen"),
-					new Usuario("nick", "contra", "nombre", "apellidos", "telefono", "email", "direccion", "imagen"),
-					new Usuario("nick", "contra", "nombre", "apellidos", "telefono", "email", "direccion", "imagen"),
-					new Usuario("nick", "contra", "nombre", "apellidos", "telefono", "email", "direccion", "imagen")));
+					new Usuario("admin", "admin", "admin", "istrador", "123456789", "admin@admin.com", "C/Administrados Nº1", 30)));
 		};
 	}
 

@@ -1,9 +1,5 @@
 package com.ejemplo.demo.model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,6 +15,10 @@ import javax.persistence.Table;
 public class Usuario {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	
+	@Column(name = "nick", nullable = false)
 	private String nick;
 	
 	@Column(name = "contra", nullable = false)
@@ -39,6 +39,9 @@ public class Usuario {
 	@Column(name = "direccion", nullable = false)
 	private String direccion;
 	
+	@Column(name = "edad", nullable = false)
+	private int edad;
+	
 	@Column(name = "imagenPerf", nullable = false)
 	private String imagenPerf;
 	
@@ -46,22 +49,10 @@ public class Usuario {
 	private Pais pais;
 	
 	
-	private List<Post> posts = new ArrayList<>();
-	
-	
-	private List<Usuario> seguidos = new ArrayList<>();
-	
-	
-	private List<Like> likesDados = new ArrayList<>();
-	
-	
-	private List<Grupo> grupos = new ArrayList<>();
-	
-	
 	public Usuario() {}
 	
 	
-	public Usuario(String nick, String contra, String nombre, String apellidos, String telefono, String email, String direccion, String imagen) {
+	public Usuario(String nick, String contra, String nombre, String apellidos, String telefono, String email, String direccion, int edad) {
 		
 		super();
 		this.nick = nick;
@@ -71,8 +62,7 @@ public class Usuario {
 		this.telefono = telefono;
 		this.email = email;
 		this.direccion = direccion;
-		this.imagenPerf = imagen;
-		//this.pais = pais;
+		this.edad = edad;
 		
 	}
 
@@ -80,119 +70,64 @@ public class Usuario {
 		return nick;
 	}
 
-
 	public void setNick(String nick) {
 		this.nick = nick;
 	}
-
 
 	public String getContra() {
 		return contra;
 	}
 
-
 	public void setContra(String contra) {
 		this.contra = contra;
 	}
-
 
 	public String getNombre() {
 		return nombre;
 	}
 
-
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
 
 	public String getApellidos() {
 		return apellidos;
 	}
 
-
 	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
 	}
-
 
 	public String getTelefono() {
 		return telefono;
 	}
 
-
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
-
 
 	public String getEmail() {
 		return email;
 	}
 
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 
 	public String getDireccion() {
 		return direccion;
 	}
 
-
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
-
 
 	public Pais getPais() {
 		return pais;
 	}
 
-
 	public void setPais(Pais pais) {
 		this.pais = pais;
-	}
-
-
-	public List<Post> getPosts() {
-		return posts;
-	}
-
-
-	public void setPosts(List<Post> posts) {
-		this.posts = posts;
-	}
-
-
-	public List<Usuario> getSeguidos() {
-		return seguidos;
-	}
-
-
-	public void setSeguidos(List<Usuario> seguidos) {
-		this.seguidos = seguidos;
-	}
-
-
-	public List<Like> getLikesDados() {
-		return likesDados;
-	}
-
-
-	public void setLikesDados(List<Like> likesDados) {
-		this.likesDados = likesDados;
-	}
-
-
-	public List<Grupo> getGrupos() {
-		return grupos;
-	}
-
-
-	public void setGrupos(List<Grupo> grupos) {
-		this.grupos = grupos;
 	}
 	
 	public String getImagenPerf() {
@@ -203,36 +138,13 @@ public class Usuario {
 		this.imagenPerf = imagenPerf;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(apellidos, contra, direccion, email, grupos, imagenPerf, likesDados, nick, nombre, pais,
-				posts, seguidos, telefono);
+	public Integer getId() {
+		return id;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Usuario other = (Usuario) obj;
-		return Objects.equals(apellidos, other.apellidos) && Objects.equals(contra, other.contra)
-				&& Objects.equals(direccion, other.direccion) && Objects.equals(email, other.email)
-				&& Objects.equals(grupos, other.grupos)
-				&& Objects.equals(imagenPerf, other.imagenPerf) && Objects.equals(likesDados, other.likesDados)
-				&& Objects.equals(nick, other.nick) && Objects.equals(nombre, other.nombre)
-				&& Objects.equals(pais, other.pais) && Objects.equals(posts, other.posts)
-				&& Objects.equals(seguidos, other.seguidos) && Objects.equals(telefono, other.telefono);
-	}
 
-	@Override
-	public String toString() {
-		return "Usuario [nick=" + nick + ", contra=" + contra + ", nombre=" + nombre + ", apellidos="
-				+ apellidos + ", telefono=" + telefono + ", email=" + email + ", direccion=" + direccion + ", pais="
-				+ pais + ", imagenPerf=" + imagenPerf + ", posts=" + posts + ", seguidos=" + seguidos + ", likesDados="
-				+ likesDados + ", grupos=" + grupos + "]";
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	
 }
