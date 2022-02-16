@@ -31,25 +31,36 @@ public class UsuarioService {
 		
 	}
 	
-	public boolean existeUsuario(String email, String contra) {
+	public Usuario existeUsuario(String email, String contra) {
 		
-		boolean encontrado = false;
-		//Usuario usuario = findById(nick);
-		//Añadir iterador para buscar el usuario
-		//if ( usuario != null && usuario.getNick().equals(nick) && usuario.getContra().equals(contra)) {
-			
-			//encontrado = true;
-			
-		//}
+		Usuario usu = null;
 		List<Usuario> findall = findAll();
 		for(Usuario u : findall) {
 			if(u.getEmail().equals(email) && u.getContra().equals(contra)) {
-				encontrado = true;
+				usu = u;
 			}
 		}
 		
-		return encontrado;
+		return usu;
 		
+	}
+	
+	public Usuario editUsu(Usuario usu) {
+		
+		Usuario usuAux = repoUsu.findById(usu.getId()).orElse(null);
+		repoUsu.delete(usuAux);
+		usuAux.setApellidos(usu.getApellidos());
+		usuAux.setContra(usu.getContra());
+		usuAux.setDireccion(usu.getDireccion());
+		usuAux.setEmail(usu.getEmail());
+		usuAux.setNick(usu.getNick());
+		usuAux.setImagenPerf(usuAux.getImagenPerf());
+		usuAux.setNombre(usu.getNombre());
+		usuAux.setNombre(usu.getNombre());
+		usuAux.setTelefono(usu.getTelefono());
+		repoUsu.save(usuAux);
+		
+		return usuAux;
 	}
 	
 }

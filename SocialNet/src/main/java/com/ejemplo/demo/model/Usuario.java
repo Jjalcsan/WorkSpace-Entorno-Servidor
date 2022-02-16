@@ -1,5 +1,7 @@
 package com.ejemplo.demo.model;
 
+import java.util.Objects;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "usuario")
@@ -42,11 +49,10 @@ public class Usuario {
 	@Column(name = "edad", nullable = false)
 	private int edad;
 	
-	@Column(name = "imagenPerf", nullable = false)
+	@Column(name = "imagenPerf", nullable = true)
 	private String imagenPerf;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch= FetchType.EAGER, orphanRemoval = true)
-	private Pais pais;
+	//private Pais pais;
 	
 	
 	public Usuario() {}
@@ -122,6 +128,7 @@ public class Usuario {
 		this.direccion = direccion;
 	}
 
+	/*
 	public Pais getPais() {
 		return pais;
 	}
@@ -129,7 +136,7 @@ public class Usuario {
 	public void setPais(Pais pais) {
 		this.pais = pais;
 	}
-	
+	*/
 	public String getImagenPerf() {
 		return imagenPerf;
 	}
@@ -146,5 +153,38 @@ public class Usuario {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(apellidos, contra, direccion, edad, email, id, imagenPerf, nick, nombre, telefono);
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		return Objects.equals(apellidos, other.apellidos) && Objects.equals(contra, other.contra)
+				&& Objects.equals(direccion, other.direccion) && edad == other.edad
+				&& Objects.equals(email, other.email) && Objects.equals(id, other.id)
+				&& Objects.equals(imagenPerf, other.imagenPerf) && Objects.equals(nick, other.nick)
+				&& Objects.equals(nombre, other.nombre) && Objects.equals(telefono, other.telefono);
+	}
+
+
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", nick=" + nick + ", contra=" + contra + ", nombre=" + nombre + ", apellidos="
+				+ apellidos + ", telefono=" + telefono + ", email=" + email + ", direccion=" + direccion + ", edad="
+				+ edad + ", imagenPerf=" + imagenPerf + "]";
+	}
+	
+	
 	
 }

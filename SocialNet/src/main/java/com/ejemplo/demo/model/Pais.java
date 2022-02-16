@@ -1,16 +1,12 @@
 package com.ejemplo.demo.model;
 
-import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -23,9 +19,6 @@ public class Pais {
 	
 	@Column(name = "nombre", nullable = false)
 	private String nombre;
-	
-	@ManyToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
-	private List<Usuario> residentes;
 
 	public Pais() {}
 	
@@ -56,19 +49,9 @@ public class Pais {
 	}
 
 
-	public List<Usuario> getResidentes() {
-		return residentes;
-	}
-
-
-	public void setResidentes(List<Usuario> residentes) {
-		this.residentes = residentes;
-	}
-
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, nombre, residentes);
+		return Objects.hash(id, nombre);
 	}
 
 
@@ -81,13 +64,13 @@ public class Pais {
 		if (getClass() != obj.getClass())
 			return false;
 		Pais other = (Pais) obj;
-		return id == other.id && Objects.equals(nombre, other.nombre) && Objects.equals(residentes, other.residentes);
+		return id == other.id && Objects.equals(nombre, other.nombre);
 	}
 
 
 	@Override
 	public String toString() {
-		return "Pais [id=" + id + ", nombre=" + nombre + ", residentes=" + residentes + "]";
+		return "Pais [id=" + id + ", nombre=" + nombre + "]";
 	}
 
 }
