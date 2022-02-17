@@ -7,10 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import com.ejemplo.demo.model.Pais;
-import com.ejemplo.demo.model.Usuario;
-import com.ejemplo.demo.repository.PaisRepository;
-import com.ejemplo.demo.repository.UsuarioRepository;
+import com.ejemplo.demo.model.User;
+import com.ejemplo.demo.repository.UserRepo;
 
 @SpringBootApplication
 public class SocialNetApplication {
@@ -20,11 +18,13 @@ public class SocialNetApplication {
 	}
 	
 	@Bean
-	CommandLineRunner initU (UsuarioRepository repoUsu, PaisRepository repoPais) {
+	CommandLineRunner initU (UserRepo repoUsu) {
 		
 		return(args) -> {
 			repoUsu.saveAll(Arrays.asList(
-					new Usuario("admin", "admin", "admin", "istrador", "123456789", "admin@admin.com", "C/Administrados Nº1", 30)));
+				  //new User(nick,  password, name,     surname,   phoneNumber,  email           , address,              age)
+					new User("admin", "admin", "admin", "istrador", "123456789", "admin@admin.com", "C/Administrados Nº1", 30),
+					new User("jjalcsan", "contra1", "Juan Jose", "Alcazar", "123456789", "jjalcsan@gmail.com", "C/JuanJo Nº80", 25)));
 		};
 		
 	}

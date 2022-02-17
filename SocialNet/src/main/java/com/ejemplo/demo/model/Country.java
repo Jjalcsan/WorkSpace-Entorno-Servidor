@@ -2,7 +2,6 @@ package com.ejemplo.demo.model;
 
 import java.util.Objects;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,48 +10,43 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "pais")
-public class Pais {
+public class Country {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "nombre", nullable = false)
-	private String nombre;
+	private String name;
 
-	public Pais() {}
+	public Country() {}
 	
-	public Pais(String nombre) {
+	public Country(String name) {
 		
 		super();
-		this.nombre = nombre;
-		
-	}
+		this.name = name;
 	
+	}
+
 	public int getId() {
 		return id;
 	}
-	
+
 	public void setId(int id) {
 		this.id = id;
 	}
 
-
-	public String getNombre() {
-		return nombre;
+	public String getName() {
+		return name;
 	}
 
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setName(String name) {
+		this.name = name;
 	}
-
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, nombre);
+		return Objects.hash(id, name);
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -62,14 +56,11 @@ public class Pais {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Pais other = (Pais) obj;
-		return id == other.id && Objects.equals(nombre, other.nombre);
+		Country other = (Country) obj;
+		return id == other.id && Objects.equals(name, other.name);
 	}
-
-
-	@Override
-	public String toString() {
-		return "Pais [id=" + id + ", nombre=" + nombre + "]";
-	}
+	
+	
+	
 
 }
