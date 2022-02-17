@@ -22,10 +22,9 @@ public class Pais {
 
 	public Pais() {}
 	
-	public Pais(int id, String nombre) {
+	public Pais(String nombre) {
 		
 		super();
-		this.id = id;
 		this.nombre = nombre;
 		
 	}

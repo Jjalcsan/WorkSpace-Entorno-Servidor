@@ -74,16 +74,6 @@ public class LoginController {
 		
 	}
 	
-	/**
-	 * Si ocurre algun error nos llevará al login
-	 * @return Nos devuelve al login
-	 */
-	@GetMapping({"/error"})
-	public String error() {
-		
-		session.invalidate();
-		return REDIRECTLOGIN;
-		
-	}
+
 	 
 }

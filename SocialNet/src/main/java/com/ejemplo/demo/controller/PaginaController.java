@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ejemplo.demo.model.Grupo;
 import com.ejemplo.demo.model.Pais;
 import com.ejemplo.demo.model.Usuario;
+import com.ejemplo.demo.service.GrupoService;
 import com.ejemplo.demo.service.PaisService;
 import com.ejemplo.demo.service.UsuarioService;
 
@@ -25,9 +27,12 @@ public class PaginaController {
 	
 	@Autowired
 	private PaisService servicePais;
+	
+	@Autowired
+	private GrupoService serviceGrup;
 
 	@GetMapping("/usuario/{id}")
-	public ResponseEntity<Usuario> findById(@PathVariable int id) throws Exception{
+	public ResponseEntity<Usuario> findById(@PathVariable int id){
 		
 		Usuario usuario = serviceUsu.findById(id);
 		ResponseEntity<Usuario> findbyid = ResponseEntity.notFound().build();
@@ -39,7 +44,6 @@ public class PaginaController {
 		} else {
 			
 			findbyid = null;
-			//En el caso de que no exista ese usuario lanzará la excepcion propia
 			
 		}
 		
@@ -100,35 +104,59 @@ public class PaginaController {
 	}
 	
 	@PostMapping("/registro")
-	public ResponseEntity<Usuario> newPedido(@RequestBody Usuario usuario)throws Exception{
+	public ResponseEntity<Usuario> registroUsu(@RequestBody Usuario usuario){
 				
 		serviceUsu.registro(usuario);
 		return ResponseEntity.status(HttpStatus.CREATED).body(usuario);
 	
 	}
 	
-	@PostMapping("/login")
-	public Usuario login(@RequestBody String email, @RequestBody String contra){
-		
-		Usuario login = null;
-		
-		if(serviceUsu.existeUsuario(email, contra) != null) {
-			
-			Usuario usuExiste = serviceUsu.existeUsuario(email, contra);
-			login = usuExiste;
-			
-		}
-		
-		return login;
-		
-	}
+	/*
+	Rehacer login*/
 	
 	@PutMapping("/{idUsu}/update")
-	public ResponseEntity<Usuario> update(@PathVariable int idUsu, @RequestBody Usuario usu){
+	public ResponseEntity<Usuario> updateUsu(@PathVariable int idUsu, @RequestBody Usuario usu){
 		
 		Usuario usuUpdated = serviceUsu.editUsu(usu);
 		return ResponseEntity.status(HttpStatus.CREATED).body(usuUpdated);
 		
 	}
+	
+	public ResponseEntity<List<Grupo>> findAllGrupos() {
+		
+		List<Grupo> grupos = serviceGrup.findAll();
+		ResponseEntity<List<Grupo>> findall = ResponseEntity.ok(grupos);
+		
+		if(grupos == null) {
+			
+			findall = ResponseEntity.notFound().build();
+			
+		}
+		
+		return findall;
+		
+	}
+	
+	@GetMapping("/pais/{id}")
+	public ResponseEntity<Pais> findByIdGrup(@PathVariable int id) {
+		
+		Pais pais = servicePais.findById(id);
+		ResponseEntity<Pais> findbyid = ResponseEntity.notFound().build();
+		
+		if(pais != null) {
+			
+			findbyid = ResponseEntity.ok(pais);
+			
+		} else {
+			
+			findbyid = null;
+			
+		}
+		
+		return findbyid;
+		
+	}
+	
+	
 	
 }
