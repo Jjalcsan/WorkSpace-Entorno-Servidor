@@ -33,13 +33,7 @@ public class SocialController {
 		
 	}
 	
-	@PostMapping("/contra")
-	public String verContra(@RequestBody Integer id) {
-	
-		User user = userRepo.findById(id).orElse(null);
-		return user.getPassword();
-		
-	}
+
 	
 	
 }
