@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/servletLogin")
 public class ServletLogin extends HttpServlet{
@@ -21,7 +22,7 @@ public class ServletLogin extends HttpServlet{
 		String nombre = request.getParameter("name");
 		String contra = request.getParameter("pass");
 		
-		if(!nombre.equals("admin") || !contra.equals("admin")) {
+		if((!nombre.equals("admin") || !contra.equals("admin")) && (!nombre.equals("juanjo") || !contra.equals("juanjo"))) {
 			
 			out.println ("<html>");
 		    out.println ("<body>");
@@ -29,10 +30,10 @@ public class ServletLogin extends HttpServlet{
 		    out.println ("<h2>Iniciar sesión</h2>");
 		    out.println ("<form action=\"/ProyectoServlet/servletLogin\" method=\"POST\">");
 		    out.println ("<label for=\"nombre\">Nombre:</label>");
-		    out.println ("<input type=\"text\" name=\"name\" value=\"nombre\"><br>");
+		    out.println ("<input type=\"text\" name=\"name\"><br>");
 		    out.println ("<label for=\"contra\">Contraseña:</label>");
-		    out.println ("<input type=\"password\" name=\"pass\" value=\"contra\"><br>");
-		    out.println ("<p>Nombre o contraseña incorrectos<p>");
+		    out.println ("<input type=\"password\" name=\"pass\"><br>");
+		    out.println ("<p style=\"color:#FF0000\";>Nombre o contraseña incorrectos<p>");
 		    out.println ("<input type=\"submit\" value=\"enviar\">");
 		    out.println ("</form>");
 		    out.println ("</div>");
@@ -41,14 +42,19 @@ public class ServletLogin extends HttpServlet{
 			
 		} else {
 			
+			HttpSession sesion = request.getSession();
+			sesion.setAttribute("nombre", nombre);
+			
 			out.println ("<html>");
 			out.println ("<body>");
 			out.println ("<h1>E-Market</h1>");
 			out.println ("<h2>Supermercados de confianza</h2>");
+			out.println ("<p>Bienvenido, "+nombre);
 			out.println ("<hr>");
 			out.println ("<div>");
 			out.println ("<h2>Nuestro catalogo</h2>");
 			out.println ("<form action=\"/ProyectoServlet/servletMain\" method=\"post\">");
+			out.println ("<input type='hidden' name='nombre' value='"+nombre+"'>");
 			out.println ("<table>");
 			out.println ("<tr>");
 			out.println ("<th>Producto</th>");

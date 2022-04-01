@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/servletFactura")
 public class ServletFactura extends HttpServlet{
@@ -18,71 +19,62 @@ public class ServletFactura extends HttpServlet{
 		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		
-		int leche = Integer.parseInt(request.getParameter("leche"));
-		if(request.getParameter("leche")==null) {
-			leche = 0;
-		}
-		int carne = Integer.parseInt(request.getParameter("carne"));
-		if(request.getParameter("carne")!=null) {
-			carne = 0;
-		}
-		int pescado = Integer.parseInt(request.getParameter("pescado"));
-		if(request.getParameter("pescado")!=null) {
-			pescado = 0;
-		}
-		int pasta = Integer.parseInt(request.getParameter("pasta"));
-		if(request.getParameter("pasta")!=null) {
-			pasta = 0;
-		}
-		int unidades = leche + carne + pescado + pasta;
-		
-		double lecheTotal = Double.parseDouble(request.getParameter("lecheTotal"));
-		if(request.getParameter("lecheTotal")==null) {
-			lecheTotal = 0;
-		}
-		
-		double carneTotal = Double.parseDouble(request.getParameter("carneTotal"));
-		if(request.getParameter("carneTotal")!=null) {
-			carneTotal = 0;
-		}
-		
-		double pescadoTotal = Double.parseDouble(request.getParameter("pescadoTotal"));
-		if(request.getParameter("pescadoTotal")!=null) {
-			pescadoTotal = 0;
-		}
-		
-		double pastaTotal = Double.parseDouble(request.getParameter("pastaTotal"));
-		if(request.getParameter("pastaTotal")!=null) {
-			pastaTotal = 0;
-		}
 
-
+		String unidades = request.getParameter("unidades");
+		String total = request.getParameter("total");
 		String envio = request.getParameter("envio");
+		String nombre = request.getParameter("nombre");
 		
-		out.println ("<html>");
-		out.println ("<body>");
-		out.println ("<h1>E-Market</h1>");
-		out.println ("<h2>Supermercados de confianza</h2>");
-		out.println ("<hr>");
-		out.println ("<div>");
-		out.println ("<h3>Factura del pedido</h3>");
-		out.println ("<p>Usuario: recoger nick de la sesion</p>");
-		out.println ("<p>Total de productos: "+unidades+" unidades</p>");
-		out.println ("<p>Método de envío: "+envio+"</p>");
-		if(envio.equals("Normal")) {
-			double total = lecheTotal+carneTotal+pescadoTotal+pastaTotal+2.0;
-			out.println("<p>Precio del pedido: "+total+"</p>");
+		HttpSession sesion = request.getSession();
+		
+		if(sesion.getAttribute("nombre")==null) {
+			
+			out.println ("<html>");
+		    out.println ("<body>");
+		    out.println ("<div>");
+		    out.println ("<h2>Iniciar sesión</h2>");
+		    out.println ("<form action=\"/ProyectoServlet/servletLogin\" method=\"POST\">");
+		    out.println ("<label for=\"nombre\">Nombre:</label>");
+		    out.println ("<input type=\"text\" name=\"name\"><br>");
+		    out.println ("<label for=\"contra\">Contraseña:</label>");
+		    out.println ("<input type=\"password\" name=\"pass\"><br>");
+		    out.println ("<p style=\"color:#FF0000\";>Debes iniciar sesión para entrar<p>");
+		    out.println ("<input type=\"submit\" value=\"enviar\">");
+		    out.println ("</form>");
+		    out.println ("</div>");
+		    out.println ("</body>");
+		    out.println ("</html>");
+			
 		} else {
-			double total = lecheTotal+carneTotal+pescadoTotal+pastaTotal+5.0;
-			out.println("<p>Precio del pedido: "+total+"</p>");
+			
+			out.println ("<html>");
+			out.println ("<body>");
+			out.println ("<h1>E-Market</h1>");
+			out.println ("<h2>Supermercados de confianza</h2>");
+			out.println ("<hr>");
+			out.println ("<div>");
+			out.println ("<form action=\"/ProyectoServlet/servletPedidoCompletado\" method='post'>");
+			out.println ("<h3>Factura del pedido</h3>");
+			out.println ("<p>Usuario: "+nombre+"</p>");
+			out.println ("<p>Total de productos: "+unidades+" unidades</p>");
+			out.println ("<p>Método de envío: "+envio+"</p>");
+			if(envio.equals("Normal")) {
+				double totalDouble = Double.parseDouble(total);
+				double totalConEnvio = totalDouble+2.0;
+				out.println("<p>Precio del pedido: "+totalConEnvio+"</p>");
+			} else {
+				double totalDouble = Double.parseDouble(total);
+				double totalConEnvio = totalDouble+5.0;
+				out.println("<p>Precio del pedido: "+totalConEnvio+"</p>");
+			}
+			out.println ("<br><input type='submit' name='enviar' value='Completar pedido'>");
+			out.println ("</form>");
+			out.println ("</div>");
+			out.println ("</body>");
+			out.println ("</html>");
 		}
-		out.println ("<button>Confirmar pedido</button>");
-		out.println ("</div>");
-		out.println ("</body>");
-		out.println ("</html>");
 	}
-	
+
 	public void doPost(HttpServletRequest request,
 	  		   		   HttpServletResponse response)
 	  		   		   throws ServletException, IOException {
