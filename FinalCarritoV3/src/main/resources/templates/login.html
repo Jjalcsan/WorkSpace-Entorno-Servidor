@@ -14,12 +14,10 @@
 		<h1>Bienvenido a E-Market</h1>
 	    <form method="post" action="#" th:object="${usuario}" th:action=" @{/login/submit}">
 	    
-		    <p><input name="nick" placeholder="Introduzca su nombre" type="text" th:field="*{nick}">
-		    <span th:if="${#fields.hasErrors('nick')}" th:errors="*{nick}">Errores</span></p>
+		    <p><input name="nick" placeholder="Introduzca su nombre" type="text" th:field="*{nick}"></p>
 		    
-		    <p><input name="contra" placeholder="Introduzca su contraseña" type="password" th:field="*{contra}"> 
-            <span th:if="${#fields.hasErrors('contra')}" th:errors="*{contra}">Errores</span></p>
-		   
+		   <p><input name="contra" placeholder="Introduzca su contraseña" type="password" th:field="*{contra}"></p>
+		   <br><p th:text="${wrongLogin}"></p>
 		    <input type="submit" value="Acceder" id="boton">
 	    
 	    </form>

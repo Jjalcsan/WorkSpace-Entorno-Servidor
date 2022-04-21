@@ -45,8 +45,10 @@ public class LoginController {
 	@PostMapping("/login/submit")
 	public String existeUsuario(@ModelAttribute("usuario") Usuario usuario, Model model) {
 		
-		if(!this.serviceUsu.existeUsuario(usuario.getNick(), usuario.getNick())) {
-			 
+		if(!this.serviceUsu.existeUsuario(usuario.getNick(), usuario.getContra())) {
+			
+			String wrongLogin = "Usuario o contraseña no validos";
+			model.addAttribute("wrongLogin", wrongLogin);
 			return "login";
 			
 		} else {
