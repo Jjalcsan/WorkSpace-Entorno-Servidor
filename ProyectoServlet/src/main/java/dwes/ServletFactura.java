@@ -13,39 +13,45 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/servletFactura")
 public class ServletFactura extends HttpServlet{
 
+	
+	/**
+	 * El metodo doGet primero mirar· que exista la sesiÛn. Si existe, mostrar· la factura final del pedido, indicando el usuario que la realiza, el total del pedido, las unidades
+	 * y el tipo de envio.
+	 * Si la sesion no existe nos llevar· al login con el correspondiente mensaje de que es necesario autenticarse
+	 */
 	public void doGet(HttpServletRequest request,
 	  		  	 	  HttpServletResponse response)
 	  		  	 	  throws ServletException, IOException {
 		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-
-		String unidades = request.getParameter("unidades");
-		String total = request.getParameter("total");
-		String envio = request.getParameter("envio");
-		String nombre = request.getParameter("nombre");
 		
 		HttpSession sesion = request.getSession();
 		
-		if(sesion.getAttribute("nombre")==null) {
+		if(sesion.getAttribute("nombre")==null) { //Si la sesion no existe nos devuelve al login
 			
 			out.println ("<html>");
 		    out.println ("<body>");
 		    out.println ("<div>");
-		    out.println ("<h2>Iniciar sesi√≥n</h2>");
+		    out.println ("<h2>Iniciar sesion</h2>");
 		    out.println ("<form action=\"/ProyectoServlet/servletLogin\" method=\"POST\">");
 		    out.println ("<label for=\"nombre\">Nombre:</label>");
 		    out.println ("<input type=\"text\" name=\"name\"><br>");
-		    out.println ("<label for=\"contra\">Contrase√±a:</label>");
+		    out.println ("<label for=\"contra\">ContraseÒa:</label>");
 		    out.println ("<input type=\"password\" name=\"pass\"><br>");
-		    out.println ("<p style=\"color:#FF0000\";>Debes iniciar sesi√≥n para entrar<p>");
+		    out.println ("<p style=\"color:#FF0000\";>Debes iniciar sesion para entrar<p>");
 		    out.println ("<input type=\"submit\" value=\"enviar\">");
 		    out.println ("</form>");
 		    out.println ("</div>");
 		    out.println ("</body>");
 		    out.println ("</html>");
 			
-		} else {
+		} else { //Si la sesion existe nos mostrar· la factura y un boton para terminar el pedido y completarlo
+			
+			String unidades = request.getParameter("unidades");
+			String total = request.getParameter("total");
+			String envio = request.getParameter("envio");
+			String nombre = request.getParameter("nombre");
 			
 			out.println ("<html>");
 			out.println ("<body>");
@@ -57,7 +63,7 @@ public class ServletFactura extends HttpServlet{
 			out.println ("<h3>Factura del pedido</h3>");
 			out.println ("<p>Usuario: "+nombre+"</p>");
 			out.println ("<p>Total de productos: "+unidades+" unidades</p>");
-			out.println ("<p>M√©todo de env√≠o: "+envio+"</p>");
+			out.println ("<p>Metodo de envio: "+envio+"</p>");
 			if(envio.equals("Normal")) {
 				double totalDouble = Double.parseDouble(total);
 				double totalConEnvio = totalDouble+2.0;
