@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="text/css" rel="stylesheet" href="/css/CSSgeneral.css" />
     <title>Login</title>
 </head>
 <body>
@@ -15,7 +14,8 @@
 	    
 		   <p><input name="nick" placeholder="Introduzca su nombre" type="text" th:field="*{nick}"></p>
 		   <p><input name="contra" placeholder="Introduzca su contraseña" type="password" th:field="*{contra}"></p>
-		   <br><p th:text="${wrongLogin}"></p>
+		   <br><p th:text="${wrongLogin}" style="color:red;"></p>
+		   <p th:text="${notLoged}" style="color:red;"></p>
 		   <input type="submit" value="Acceder" id="boton">
 	    
 	    </form>

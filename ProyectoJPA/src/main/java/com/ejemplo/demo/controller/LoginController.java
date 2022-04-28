@@ -18,16 +18,28 @@ public class LoginController {
 	@Autowired HttpSession sesion;
 	@Autowired UsuarioService serviceUsu;
 	
-	
+	/**
+	* Nos muestra el login al acceder a la aplicacion
+	* @param model
+	* @return nos devuelve al login
+	*/
 	@GetMapping({"/login", "/"})
-	public String login() {
+	public String login(Model model) {
 		
+		model.addAttribute("usuario", new Usuario());
 		return "login";
 		
 	}
 	
+	/**
+	 * Comprueba que el usuario que se ha introducido en el login es correcto
+	 * @param usuario
+	 * @param model
+	 * @return Si el usuario existe pasara al inicio de usuario, si no, le devolvera al login y dara
+	 * un mensaje de error
+	 */
 	@PostMapping("/login/submit")
-	public String inicioSesion(@ModelAttribute Usuario usuario, Model model) {
+	public String inicioSesion(@ModelAttribute("usuario") Usuario usuario, Model model) {
 		
 		if(!serviceUsu.loginUsuario(usuario.getNick(), usuario.getContra())) {
 			
@@ -38,7 +50,7 @@ public class LoginController {
 		} else {
 			
 			Usuario usu = serviceUsu.findById(usuario.getNick());
-			sesion.setAttribute("usuarioLogado", usu);
+			sesion.setAttribute("usuario", usu);
 			model.addAttribute("usuario", usu);
 			
 			return "inicio";
@@ -46,4 +58,28 @@ public class LoginController {
 		}
 		
 	}
+	
+	/**
+	 * Invalida la sesion actual
+	 * @return Nos devuelve al login
+	 */
+	@GetMapping({"/terminate"})
+	public String terminate(Model model) {
+		
+		sesion.invalidate();
+		//String wrongLogin = "El usuario o contraseña introducidos no son validos";
+		//model.addAttribute("wrongLogin", wrongLogin);
+		return "redirect:/login";
+
+		
+		
+	}
+	
+	@GetMapping("/error")
+	public String error() {
+		
+		return "redirect:/error";
+		
+	}
+	
 }
