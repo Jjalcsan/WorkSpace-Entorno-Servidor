@@ -12,36 +12,37 @@
 		
 		<h1>Nuestra seleccion</h1>
 		
-		<input type="hidden" th:value="${nickUsu}"  name="nickUsu" >
+		<input type="hidden" th:value="${usuarioID}"  name="usuarioID" >
 		<input type="hidden" th:value="${idPed}" name="idPed" >
 		
-		<form th:action="@{/catalogo/submit}"  method="post">
+		
 		<table>
 			<tr>
 			
 				<th scope="col">Producto</th>
 				<th scope="col">Precio</th>
 				<th scope="col">Unidades</th>
+				<th scope="col">Añadir</th>
 				
 			</tr>
 			
 		
 			
 			<tr th:each="producto : ${listaDeProductos}">
-			
-				<td th:text="${producto.getNombre()}"></td>
-				<td th:text="${producto.getPrecio()}"></td>
-				<td><input type="number" name="unidades" min="0" value="0"/></td>
-				<input type="hidden" th:value="${producto.id}"  th:name="id" th:id="id">
-				
+				<form th:action="@{/catalogo/submit}"  method="post">
+					<td th:text="${producto.getNombre()}" th:field=></td>
+					<td th:text="${producto.getPrecio()}"></td>
+					<td><input type="number" name="unidades" min="0" value="0"/></td>
+					<input type="hidden" th:value="${producto.id}"  th:name="id" th:id="id">
+					<input type="hidden" th:value="${producto.nombre}">
+				</form>
 			</tr>
 			
 		</table>
 		
-        <input type="hidden" th:value="${nickUsu}"  name="nickUsu" >
-        <input type="hidden" th:value="${idPed}" name="idPed" >
         <button type="submit" id="submit" >ENVIAR</button>
-        </form>
+        <p th:text="${emptyCarrito}" style="color:red;"></p>
+        
 
 	</div>	
 	</div>

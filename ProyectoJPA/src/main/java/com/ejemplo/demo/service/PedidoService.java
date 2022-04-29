@@ -42,4 +42,25 @@ public class PedidoService {
 		
 	}
 	
+	/**
+	 * Busca todos los pedidos de la BBDD
+	 * @return Nos devuelve la lista de pedidos
+	 */
+	public List<Pedido> findAll() {
+		
+		return repoPed.findAll();
+		
+	}
+	
+	/**
+	 * Busca un pedido por su ID que le pasamos por parametros
+	 * @param pedidoID
+	 * @return Nos devuelve el pedido o null si no lo encuentra
+	 */
+	public Pedido findPedidoById(Integer pedidoID) {
+		
+		return this.repoPed.findById(pedidoID).orElse(null);
+		
+	}
+	
 }

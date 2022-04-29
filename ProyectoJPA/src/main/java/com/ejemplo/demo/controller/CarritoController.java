@@ -6,11 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ejemplo.demo.model.Usuario;
 import com.ejemplo.demo.service.PedidoService;
 import com.ejemplo.demo.service.ProductoService;
 import com.ejemplo.demo.service.UsuarioService;
+import com.ejemplo.demo.model.LineaPedido;
 import com.ejemplo.demo.model.Pedido;
 import com.ejemplo.demo.model.Producto;
 
@@ -90,7 +94,7 @@ public class CarritoController {
 	 * @param model
 	 * @return Nos lleva al catalogo si estamos en sesion o al login en caso contrario
 	 */
-	@GetMapping("/inicio/catalogo")
+	@GetMapping("/catalogo")
 	public String newPedido(Model model) {
 			 
 		if(sesion.getAttribute(USUARIOSTRING) == null) {
@@ -102,12 +106,13 @@ public class CarritoController {
 			model.addAttribute("produ", new Producto());
 			model.addAttribute("listaDeProductos", serviceProd.findAll());
 			
-			Usuario usuario = (Usuario) sesion.getAttribute(USUARIOSTRING);
-			model.addAttribute("usuarioID", usuario.getNick());
+			Usuario usuLogged = (Usuario) sesion.getAttribute(USUARIOSTRING);
+			Usuario usuAux = serviceUsu.findById(usuLogged.getNick());
+			model.addAttribute("usuarioID", usuAux.getNick());
 			
 			Pedido pedido = new Pedido();
-			pedido.setUsuario(usuario);
-			usuario.getPedidos().add(0, pedido);	
+			pedido.setUsuario(usuAux);
+			usuAux.getPedidos().add(0, pedido);	
 			servicePed.addPedido(pedido);
 			
 			model.addAttribute("idPed", pedido.getId());
@@ -116,5 +121,29 @@ public class CarritoController {
 				
 		}
 	}
+	
+	//@PostMapping("/catalogo/add")
+	//public String addProducto(@ModelAttribute("producto")Producto newProducto, @RequestParam(required=false,name="unidades") Integer unidades, @RequestParam(required=true,name="idPed") Integer idPedido,Model model) {
+		
+		/*Pedido pedido = servicePed.findPedidoById(idPedido);
+		
+		for (int i = 0; i<pedido.getLineas().size(); i++) {
+			//LineaPedido lineaAux = pedido.getLineas().;
+			//if(newProducto.getNombre().equals(pedido[i]))
+		}
+		
+		if(unidades<=0) {
+			
+			//String emptyCarrito = ;
+			model.addAttribute("emptyCarrito", "Debes introducir una cantidad superior a 0");
+			
+		} else if (){
+			
+			
+			
+		}
+		
+		return "";*/
+	//}
 	
 }
